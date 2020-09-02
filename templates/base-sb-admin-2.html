@@ -1,0 +1,184 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>{% block title %}Data Nest{% endblock %}</title>
+        <link href="{% static "fontawesome/css/all.min.css" %}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        {% block extra_css %}
+            {# Override this in templates to add extra stylesheets #}
+        {% endblock %}
+    </head>
+    <body id="page-top">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+            <!-- Sidebar -->
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+                <!-- Sidebar - Brand -->
+                <li>
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'home:index' %}">
+                        <div class="sidebar-brand-icon rotate-n-15">
+                            <i class="fas fa-laugh-wink"></i>
+                        </div>
+                        <div class="sidebar-brand-text mx-3">Data Nest <sup>2</sup></div>
+                    </a>
+                </li>
+
+                <!-- Divider -->
+                <li>
+                    <hr class="sidebar-divider my-0">
+                </li>
+
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item {% if active_menu == "home" %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'home:index' %}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <!-- Divider -->
+                <li>
+                    <hr class="sidebar-divider">
+                </li>
+
+                <!-- Heading -->
+                <li>
+                    <div class="sidebar-heading">
+                        Data Engine
+                    </div>
+                </li>
+
+                <!-- Nav Item - Data Engine -->
+                <li class="nav-item {% if active_menu == "workbench" %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'dataengine:workbench' %}">
+                        <i class="fas fa-fw fa-tools"></i>
+                        <span>Workbench</span>
+                    </a>
+                </li>
+
+                <!-- Nav Item - Data Explorer -->
+                <li class="nav-item {% if active_menu == "data-explorer" %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'dataexplorer:data-explorer' %}">
+                        <i class="fas fa-fw fa-chart-line"></i>
+                        <span>Data Explorer</span>
+                    </a>
+                </li>
+
+                {% if user.is_authenticated %}
+                    <!-- Nav Item - SEC Stock -->
+                    <li class="nav-item {% if active_menu == "sec-stock" %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'secedgar:sec-stock' %}">
+                            <i class="fas fa-fw fa-chart-area"></i>
+                            <span>SEC Stock</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                <!-- Divider -->
+                <li>
+                    <hr class="sidebar-divider d-none d-md-block">
+                </li>
+
+                <!-- Sidebar Toggler (Sidebar) -->
+                <li class="text-center">
+                    <div class="d-none d-md-inline">
+                        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                    </div>
+                </li>
+            </ul>
+            <!-- End of Sidebar -->
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <!-- Main Content -->
+                <div id="content">
+
+                    <!-- Top Bar -->
+                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                        <!-- Sidebar Toggle (Top Bar) -->
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+
+                        {% block extra-top-bar-form %}
+                        {% endblock %}
+
+                        <ul class="navbar-nav ml-auto">
+
+                            {% if user.is_authenticated %}
+                                <!-- Nav Item - User Information -->
+                                <li class="nav-item dropdown no-arrow">
+                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.username }}</span>
+                                        <img class="img-profile rounded-circle" alt="profile image"
+                                             src="https://source.unsplash.com/cbr123czLCs/60x60">
+                                    </a>
+                                    <!-- Dropdown - User Information -->
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                         aria-labelledby="userDropdown">
+                                        <a class="dropdown-item" href="{% url 'logout' %}">
+                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Logout
+                                        </a>
+                                    </div>
+                                </li>
+                            {% else %}
+                                <a class="btn btn-outline-primary btn-sm" href="{% url "login" %}" role="button">Login</a>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    <!-- End of Top Bar -->
+
+                    <!-- Begin Page Content -->
+                    {% block page_content %}{% endblock %}
+                </div>
+                <!-- End of Main Content -->
+
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Data Nest 2020</span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
+
+            </div>
+            <!-- End of Content Wrapper -->
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="{% static "jquery/js/jquery-3.4.1.min.js" %}" crossorigin="anonymous"></script>
+        <script src="{% static "bootstrap/js/bootstrap.bundle.min.js" %}" crossorigin="anonymous"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="{% static "jquery-easing/js/jquery.easing.min.js" %}"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="{% static "datanestgraph/sb-admin-2.bundle.js" %}"></script>
+
+        <!-- Page level plugins -->
+        <script src="{% static "chart/js/Chart.bundle.min.js" %}" crossorigin="anonymous"></script>
+
+        <!-- Page level custom scripts -->
+        {% block extra_js %}{% endblock %}
+    </body>
+</html>
