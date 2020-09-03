@@ -12,5 +12,6 @@ import { eventEmitter, EventTypes } from './Events';
     $('#data-sources-reset').on('click', () => {
         $dataSourcePicker.val([]);
         $dataSourcePicker.selectpicker('refresh');
+        $dataSourcePicker.trigger('change');
     });
 })(jQuery);

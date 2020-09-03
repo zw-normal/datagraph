@@ -1,7 +1,6 @@
 import uuid
 import networkx as nx
 from django.db import models
-from django.contrib.postgres.fields import JSONField
 from django.core.exceptions import ValidationError
 
 
@@ -37,7 +36,7 @@ class DataNode(models.Model):
         max_length=128, db_index=True)
     type = models.CharField(
         max_length=20, choices=DataNodeType.choices, db_index=True)
-    params = JSONField(
+    params = models.JSONField(
         null=True, blank=True)
     unit = models.ForeignKey(
         Unit, null=True, blank=True, on_delete=models.SET_NULL)

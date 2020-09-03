@@ -25,7 +25,7 @@ import { DataGraph, DataGraphAPI } from '../DataGraphApi';
     });
 
     eventEmitter.on(EventTypes.DATA_SOURCES_LOADED, (graph: DataGraph) => {
-        const nodes = graph.nodes.map(n => ({id: n.id, title: n.title, type: n.type, chartType: n.chartType}));
+        const nodes = graph.nodes.map(n => ({id: n.id, title: n.title, type: n.type}));
         const edges = graph.edges.map(e => ({source: e.source.id, target: e.dest.id}));
 
         graphView = new GraphView(

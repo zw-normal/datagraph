@@ -1,0 +1,51 @@
+{% extends "base-sb-admin-2.html" %}
+
+{% load static %}
+
+{% block title %}
+    Data Graph - Node Editor
+{% endblock %}
+
+{% block page_content %}
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Node Editor</h1>
+        </div>
+        <div class="col-md-8">
+            <form method="POST" role="form">
+                {% csrf_token %}
+                {% for field in form.hidden_fields %}
+                    <div class="fieldWrapper form-group">
+                        {{ field }}
+                    </div>
+                {% endfor %}
+
+                {% for field in form.visible_fields %}
+                    <div class="fieldWrapper form-group">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.help_text %}
+                            <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <input type="submit" class="btn btn-primary mb-2" value="Submit" />
+                <input type="button" class="btn btn-secondary mb-2" onclick="window.history.back();" value="Back" />
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static "bootstrap-select/css/bootstrap-select.min.css" %}">
+    <link rel="stylesheet" href="{% static "jsuits/css/jsuites.css" %}" type="text/css" />
+    <link rel="stylesheet" href="{% static "jexcel/css/jexcel.css" %}" type="text/css" />
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static "bootstrap-select/js/bootstrap-select.min.js" %}"></script>
+    <script src="{% static "jexcel/js/jexcel.js" %}" crossorigin="anonymous"></script>
+    <script src="{% static "jsuits/js/jsuites.js" %}" crossorigin="anonymous"></script>
+    <script src="{% static "datagraph/engine-spreadsheet-widget.bundle.js" %}" crossorigin="anonymous"></script>
+    <script src="{% static "datagraph/engine-node-editor.bundle.js" %}" crossorigin="anonymous"></script>
+{% endblock %}

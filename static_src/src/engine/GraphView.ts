@@ -4,7 +4,6 @@ export interface Node {
     id: string;
     title: string;
     type: string;
-    chartType?: string;
 }
 
 export interface Link {

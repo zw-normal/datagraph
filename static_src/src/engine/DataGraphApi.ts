@@ -3,7 +3,6 @@ export interface DataNode {
     title: string;
     name: string;
     type: string;
-    chartType: string;
 }
 
 export interface DataEdge {
@@ -26,7 +25,7 @@ export class DataGraphAPI {
         const query = `
                 query {
                     dataNode (id: "${id}") { 
-                        id, title, name, type, chartType, data
+                        id, title, name, type, data
                     }
                 }
             `;
@@ -40,9 +39,9 @@ export class DataGraphAPI {
             })
             .then(response => response.json())
             .then(data => {
-                const {id, title, name, type, chartType} = data.data.dataNode;
+                const {id, title, name, type} = data.data.dataNode;
                 return {
-                    node: {id, title, name, type, chartType},
+                    node: {id, title, name, type},
                     data: JSON.parse(data.data.dataNode.data)
                 };
             })
@@ -57,11 +56,11 @@ export class DataGraphAPI {
         const query = `
                 query {
                     dataNodes (ids: [${idsQuery}]) { 
-                        id, title, name, type, chartType
+                        id, title, name, type
                     }
                     dataEdges (ids: [${idsQuery}]) {
-                        source { id, title, name, type, chartType },
-                        dest { id, title, name, type, chartType }
+                        source { id, title, name, type },
+                        dest { id, title, name, type }
                     }
                 }
             `;
@@ -104,4 +103,3 @@ export class DataGraphAPI {
         return false;
     }
 }
-

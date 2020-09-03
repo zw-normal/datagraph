@@ -1,0 +1,4 @@
+{% with widget_id=widget.attrs.id|stringformat:'s' %}
+    <input id="{{ widget_id }}_input" type="hidden" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}>
+    <div id="{{ widget_id }}_spreadsheet"></div>
+{% endwith %}

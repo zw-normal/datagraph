@@ -4,14 +4,14 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
     mode: 'development',
     entry: {
-        'sb-admin-2': './src/datanestgraph/sb-admin-2.ts',
-        'dataengine-workbench': './src/dataengine/workbench/index.ts',
-        'dataengine-node-editor': './src/dataengine/node-editor/index.ts',
-        'dataengine-spreadsheet-widget': './src/dataengine/spreadsheet-widget/index.ts',
+        'sb-admin-2': './src/datagraph/sb-admin-2.ts',
+        'engine-workbench': './src/engine/workbench/index.ts',
+        'engine-node-editor': './src/engine/node-editor/index.ts',
+        'engine-spreadsheet-widget': './src/engine/spreadsheet-widget/index.ts',
     },
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, '../static_build/datanestgraph'),
+        path: path.resolve(__dirname, '../static_build/datagraph'),
     },
     resolve: {
         extensions: [ '.tsx', '.ts', '.js' ],

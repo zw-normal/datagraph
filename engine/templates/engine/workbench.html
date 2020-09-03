@@ -1,0 +1,65 @@
+{% extends "base-sb-admin-2.html" %}
+
+{% load static %}
+
+{% block title %}
+    Data Graph - Workbench
+{% endblock %}
+
+{% block page_content %}
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Workbench</h1>
+        </div>
+        <div class="row">
+            <div class="col">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        {{ form.source_nodes }}
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" id="data-sources-reset">
+                                <i class="fas fa-trash fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+                <div class="btn-group ml-2">
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-plus fa-sm"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'engine:new-source-node-editor' 'reader' 'rba' %}">Reserve Bank of Australia</a>
+                        <a class="dropdown-item" href="{% url 'engine:new-source-node-editor' 'reader' 'manual' %}">Manual</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" id="graph-container"></div>
+        </div>
+            <div class="dropdown-menu" id="data-graph-context-menu">
+                <a class="dropdown-item" href="{% url 'engine:existing-node-editor' '00000000-0000-0000-0000-000000000000' %}">Edit</a>
+                <h6 class="dropdown-header">Link a Calculator</h6>
+                <a class="dropdown-item" href="{% url 'engine:new-node-editor' 'calculator' 'col_rename' '00000000-0000-0000-0000-000000000000' %}">Column Rename</a>
+                <a class="dropdown-item" href="{% url 'engine:new-node-editor' 'calculator' 'col_sel' '00000000-0000-0000-0000-000000000000' %}">Column Selection</a>
+                <a class="dropdown-item" href="{% url 'engine:new-node-editor' 'calculator' 'drop_na' '00000000-0000-0000-0000-000000000000' %}">Drop N/A</a>
+                <a class="dropdown-item" href="{% url 'engine:new-node-editor' 'calculator' 'pct_change' '00000000-0000-0000-0000-000000000000' %}">Percent Change</a>
+                <h6 class="dropdown-header">Link a Aggregator</h6>
+                <a class="dropdown-item" href="{% url 'engine:new-node-editor' 'aggregator' 'concat' '00000000-0000-0000-0000-000000000000' %}">Concat</a>
+            </div>
+        <br/>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static "bootstrap-select/css/bootstrap-select.min.css" %}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static "bootstrap-select/js/bootstrap-select.min.js" %}"></script>
+    <script src="{% static "datagraph/engine-workbench.bundle.js" %}"></script>
+{% endblock %}
