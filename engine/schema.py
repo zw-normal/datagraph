@@ -56,7 +56,10 @@ class Query(object):
 
     def resolve_data_nodes(self, info, **kwargs):
         session = info.context.session
-        ids = set(kwargs.get('ids'))
+        if kwargs.get('ids'):
+            ids = set(kwargs.get('ids'))
+        else:
+            ids = set()
         session['source_node_ids'] = ids
         if ids:
             return list(DataNode.objects.filter(id__in=ids))

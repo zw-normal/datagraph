@@ -21,36 +21,6 @@ export interface DataNodeData {
 }
 
 export class DataGraphAPI {
-    public getData = async (id: string): Promise<DataNodeData | null> => {
-        const query = `
-                query {
-                    dataNode (id: "${id}") { 
-                        id, title, name, type, data
-                    }
-                }
-            `;
-
-        return fetch(
-            `${window.location.origin}/graphql`,
-            {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({query})
-            })
-            .then(response => response.json())
-            .then(data => {
-                const {id, title, name, type} = data.data.dataNode;
-                return {
-                    node: {id, title, name, type},
-                    data: JSON.parse(data.data.dataNode.data)
-                };
-            })
-            .catch(error => {
-                console.error(error);
-                return null;
-            });
-    }
-
     public getDataGraph = async (ids: string[]): Promise<DataGraph> => {
         const idsQuery = ids.map(id => `"${id}"`).join(', ');
         const query = `

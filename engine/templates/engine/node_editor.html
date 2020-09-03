@@ -30,7 +30,7 @@
                     </div>
                 {% endfor %}
                 <input type="submit" class="btn btn-primary mb-2" value="Submit" />
-                <input type="button" class="btn btn-secondary mb-2" onclick="window.history.back();" value="Back" />
+                <a class="btn btn-secondary mb-2" href="{% url 'engine:workbench' %}" role="button">Back</a>
             </form>
         </div>
     </div>

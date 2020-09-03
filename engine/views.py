@@ -12,7 +12,7 @@ from engine.forms import DataReadersForm
 
 
 def workbench(request):
-    node_ids = request.session.get('source_node_ids', [])
+    node_ids = request.session.get('source_node_ids', set())
     if node_ids:
         source_nodes = get_data_nodes_by_ids(node_ids)
         form = DataReadersForm({'source_nodes': source_nodes})
@@ -26,6 +26,7 @@ def workbench(request):
         })
 
 
+@login_required
 def new_node_editor(
         request,
         node_type: str,
@@ -44,8 +45,8 @@ def new_node_editor(
         if form.is_valid():
             node_id = form.save_to_node()
             if node_type == DataNodeType.READER.value.lower():
-                request.session['source_nodes'] = request.session.get('source_nodes') or []
-                request.session['source_nodes'].append(node_id)
+                request.session['source_nodes'] = request.session.get('source_nodes', set())
+                request.session['source_nodes'].add(node_id)
             return HttpResponseRedirect(reverse('engine:workbench'))
     else:
         form_fields = {
@@ -73,6 +74,7 @@ def new_node_editor(
     )
 
 
+@login_required
 def existing_node_editor(request, node_id: str):
     node = get_object_or_404(DataNode, id=node_id)
     form_class = Component.get_form_class(node)

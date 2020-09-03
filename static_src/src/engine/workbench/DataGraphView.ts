@@ -13,9 +13,6 @@ import { DataGraph, DataGraphAPI } from '../DataGraphApi';
         if (graphView) {
             graphView.destroy();
         }
-        if (nodeIds.length == 0) {
-            return;
-        }
 
         dataGraphAPI.getDataGraph(nodeIds)
             .then((graph: DataGraph) => {

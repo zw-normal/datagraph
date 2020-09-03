@@ -16,15 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from django.views.decorators.csrf import csrf_exempt
 
 from graphene_django.views import GraphQLView
 from datagraph.schema import schema
 
+from engine.forms import EngineAuthenticationForm
 from engine import urls as engine_url
 
 
 urlpatterns = [
+    path('accounts/login/', auth_views.LoginView.as_view(
+        authentication_form=EngineAuthenticationForm), name='login'),
+    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('admin', admin.site.urls),
     path('graphql', csrf_exempt(GraphQLView.as_view(graphiql=True, schema=schema))),
     path('', include(engine_url)),
