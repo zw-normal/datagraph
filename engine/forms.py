@@ -1,5 +1,4 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
 from graph.models import DataNode, DataEdge
 from graph.queries import \
     get_data_readers, get_data_nodes_by_dest, \
@@ -135,13 +134,3 @@ class AggregatorForm(ComponentForm):
 
         source_nodes = self.cleaned_data['source_nodes']
         set_data_node_sources(source_nodes, node)
-
-
-class EngineAuthenticationForm(AuthenticationForm):
-
-    def __init__(self, request=None, *args, **kwargs):
-        super().__init__(request, *args, **kwargs)
-        self.fields['username'].widget.attrs['class'] = 'form-control form-control-user'
-        self.fields['username'].widget.attrs['placeholder'] = 'Enter User Name...'
-        self.fields['password'].widget.attrs['class'] = 'form-control form-control-user'
-        self.fields['password'].widget.attrs['placeholder'] = 'Password'

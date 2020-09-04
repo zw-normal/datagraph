@@ -22,15 +22,17 @@ from django.views.decorators.csrf import csrf_exempt
 from graphene_django.views import GraphQLView
 from datagraph.schema import schema
 
-from engine.forms import EngineAuthenticationForm
+from viewer import urls as viewer_url
+from viewer.forms import DataGraphAuthenticationForm
 from engine import urls as engine_url
 
 
 urlpatterns = [
     path('accounts/login/', auth_views.LoginView.as_view(
-        authentication_form=EngineAuthenticationForm), name='login'),
+        authentication_form=DataGraphAuthenticationForm), name='login'),
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('admin', admin.site.urls),
     path('graphql', csrf_exempt(GraphQLView.as_view(graphiql=True, schema=schema))),
-    path('', include(engine_url)),
+    path('engine/', include(engine_url)),
+    path('', include(viewer_url)),
 ]

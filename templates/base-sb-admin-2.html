@@ -18,6 +18,66 @@
     <body id="page-top">
         <!-- Page Wrapper -->
         <div id="wrapper">
+            <!-- Sidebar -->
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+                <!-- Sidebar - Brand -->
+                <li>
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'viewer:index' %}">
+                        <div class="sidebar-brand-icon rotate-n-15">
+                            <i class="fas fa-laugh-wink"></i>
+                        </div>
+                        <div class="sidebar-brand-text mx-3">Data Graph <sup>2</sup></div>
+                    </a>
+                </li>
+
+                <!-- Divider -->
+                <li>
+                    <hr class="sidebar-divider my-0">
+                </li>
+
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item {% if active_menu == "home" %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'viewer:index' %}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <!-- Divider -->
+                <li>
+                    <hr class="sidebar-divider">
+                </li>
+
+                <!-- Heading -->
+                <li>
+                    <div class="sidebar-heading">
+                        Engine
+                    </div>
+                </li>
+
+                <!-- Nav Item - Data Engine -->
+                <li class="nav-item {% if active_menu == "workbench" %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'engine:workbench' %}">
+                        <i class="fas fa-fw fa-tools"></i>
+                        <span>Workbench</span>
+                    </a>
+                </li>
+
+                <!-- Divider -->
+                <li>
+                    <hr class="sidebar-divider d-none d-md-block">
+                </li>
+
+                <!-- Sidebar Toggle (Sidebar) -->
+                <li class="text-center">
+                    <div class="d-none d-md-inline">
+                        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                    </div>
+                </li>
+            </ul>
+            <!-- End of Sidebar -->
+
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
 

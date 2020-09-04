@@ -124,9 +124,6 @@ export class GraphView {
             .attr("r", radius)
             .call(drag(simulation));
 
-        node.append("title")
-            .text((d: any) => d.title);
-
         node.on("click", function (d) {
             if (nodeClicked) {
                 nodeClicked(d);
@@ -141,9 +138,18 @@ export class GraphView {
             }
         });
 
+        const labels = svg.selectAll("text.label")
+                .data(nodes)
+                .enter().append("text")
+                .attr("class", "label")
+                .attr("fill", "black")
+                .attr("pointer-events", "none")
+                .text(function(d) {return d.title;});
+
         simulation.on("tick", () => {
-            link.attr("d", linkLine);
+            link.attr("d", linkArc);
             node.attr("cx", (d: any) => d.x).attr("cy", (d: any) => d.y);
+            labels.attr("transform", function(d) {return "translate(" + (d.x + 4) + "," + (d.y - 4) + ")";});
         });
 
         function linkArc(d: any) {

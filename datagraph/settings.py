@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['localhost']
 # Application definition
 
 INSTALLED_APPS = [
+    'viewer.apps.ViewerConfig',
     'engine.apps.EngineConfig',
     'graph.apps.GraphConfig',
     'django.contrib.admin',
