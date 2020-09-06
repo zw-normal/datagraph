@@ -29,10 +29,10 @@ class Form(CalculatorForm):
 
     axis = forms.ChoiceField(
         label='Axis', choices=AXIS_CHOICES, required=False,
-        widget=forms.Select(attrs={'class': 'form-control'}))
+        widget=forms.Select(attrs={'class': 'form-control selectpicker'}))
     how = forms.ChoiceField(
         label='How', choices=HOW_CHOICES, required=False,
-        widget=forms.Select(attrs={'class': 'form-control'}))
+        widget=forms.Select(attrs={'class': 'form-control selectpicker'}))
 
     @staticmethod
     def load_special_fields(node: DataNode):

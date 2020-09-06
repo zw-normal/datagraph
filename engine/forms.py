@@ -1,8 +1,13 @@
 from django import forms
-from graph.models import DataNode, DataEdge
+from graph.models import DataNodeType, DataNode, DataEdge
 from graph.queries import \
-    get_data_readers, get_data_nodes_by_dest, \
+    get_units, get_data_readers, get_data_nodes_by_dest, \
     set_data_node_sources, link_data_nodes
+
+
+class DataNodeUnitChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return obj.name
 
 
 class DataNodeModelChoiceField(forms.ModelChoiceField):
@@ -40,10 +45,21 @@ class ComponentForm(forms.Form):
         label='Name', max_length=128,
         widget=forms.TextInput(
             attrs={'class': 'form-control', 'readonly': True}))
-    type = forms.CharField(
-        label='Type', max_length=20,
-        widget=forms.TextInput(
-            attrs={'class': 'form-control', 'readonly': True}))
+    type = forms.ChoiceField(
+        label='Type', choices=DataNodeType.choices,
+        widget=forms.Select(
+            attrs={
+                'class': 'form-control selectpicker',
+                'disabled': True
+            }))
+    unit = DataNodeUnitChoiceField(
+        queryset=get_units(),
+        required=False,
+        to_field_name='name',
+        label='Unit',
+        widget=forms.Select(
+            attrs={'class': 'form-control selectpicker'}
+        ))
 
     @classmethod
     def load_from_node(cls, node: DataNode):
@@ -51,7 +67,8 @@ class ComponentForm(forms.Form):
             'id': node.id,
             'title': node.title,
             'name': node.name,
-            'type': node.type
+            'type': node.type,
+            'unit': node.unit
         }
         form_args.update(
             cls.load_special_fields(node)
@@ -70,11 +87,13 @@ class ComponentForm(forms.Form):
                 node.type = self.cleaned_data['type']
                 node.name = self.cleaned_data['name']
                 node.title = self.cleaned_data['title']
+                node.unit = self.cleaned_data['unit']
             else:
                 node = DataNode(
                     type=self.cleaned_data['type'],
                     name=self.cleaned_data['name'],
-                    title=self.cleaned_data['title']
+                    title=self.cleaned_data['title'],
+                    unit=self.cleaned_data['unit']
                 )
             self.save_special_fields(node)
             node.save()

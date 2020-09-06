@@ -1,6 +1,10 @@
 from typing import List
 from django.db.models import Q
-from graph.models import DataNode, DataEdge, DataNodeType
+from graph.models import Unit, DataNode, DataEdge, DataNodeType
+
+
+def get_units():
+    return Unit.objects.all()
 
 
 def get_data_readers():

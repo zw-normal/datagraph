@@ -1,7 +1,5 @@
 import importlib
-import json
 
-from django.template import loader
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -103,18 +101,7 @@ def vega_spec(request, node_id: str):
     """This view generates vega visualization specification"""
     data_node = get_object_or_404(DataNode, id=node_id)
     data_component = Component.get_component(data_node)
-    data_frame = data_component.process()
-    data_dict = data_frame.to_dict('split')
 
-    data_result = []
-    for row_count, row_index in enumerate(data_dict['index']):
-        for column_count, column_index in enumerate(data_dict['columns']):
-            data_result.append({
-                'x': row_index.timestamp() * 1000,
-                'y': data_dict['data'][row_count][column_count],
-                'c': column_index})
-
-    tpl = loader.get_template('engine/vega_line_chart_spec.jinja2')
     return HttpResponse(
-        tpl.render(context={'data': json.dumps(data_result)}, request=request),
+        data_component.process(),
         content_type='application/json')
