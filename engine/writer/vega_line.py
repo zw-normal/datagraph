@@ -21,7 +21,11 @@ class Writer(Component):
                     'c': column_index})
 
         tpl = loader.get_template('engine/vega_line_chart_spec.jinja2')
-        return tpl.render(context={'data': json.dumps(data_result)})
+        return tpl.render(context={
+            'title': self.title,
+            'unit': self.unit.name,
+            'data': json.dumps(data_result)
+        })
 
 
 class Form(WriterForm):

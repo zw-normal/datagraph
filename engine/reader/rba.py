@@ -19,7 +19,7 @@ class Reader (Component):
                 xls_url, skiprows=10, index_col=0, sheet_name='Data')
             result = result.set_index(
                 pd.to_datetime(result.index)).sort_index()
-            cache.set(cache_key, result)
+            cache.set(cache_key, result, timeout=86400)
         return result
 
 

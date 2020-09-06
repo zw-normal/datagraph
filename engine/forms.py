@@ -1,5 +1,5 @@
 from django import forms
-from graph.models import DataNodeType, DataNode, DataEdge
+from graph.models import DataNode, DataEdge
 from graph.queries import \
     get_units, get_data_readers, get_data_nodes_by_dest, \
     set_data_node_sources, link_data_nodes
@@ -45,13 +45,10 @@ class ComponentForm(forms.Form):
         label='Name', max_length=128,
         widget=forms.TextInput(
             attrs={'class': 'form-control', 'readonly': True}))
-    type = forms.ChoiceField(
-        label='Type', choices=DataNodeType.choices,
-        widget=forms.Select(
-            attrs={
-                'class': 'form-control selectpicker',
-                'disabled': True
-            }))
+    type = forms.CharField(
+        label='Type', max_length=20,
+        widget=forms.TextInput(
+            attrs={'class': 'form-control', 'readonly': True}))
     unit = DataNodeUnitChoiceField(
         queryset=get_units(),
         required=False,

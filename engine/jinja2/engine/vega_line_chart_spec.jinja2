@@ -3,6 +3,11 @@
   "description": "Vega line chart spec.",
   "padding": {"left": 5, "top": 5, "right": 20, "bottom": 5},
   "autosize": {"type": "fit", "contains": "padding"},
+
+  "title": {
+    "text": "{{ title }}"
+  },
+
   "signals": [
     {
       "name": "width",
@@ -48,7 +53,7 @@
 
   "axes": [
     {"orient": "bottom", "scale": "x"},
-    {"orient": "left", "scale": "y"}
+    {"orient": "left", "scale": "y", "title": "{{ unit }}"}
   ],
 
   "marks": [
