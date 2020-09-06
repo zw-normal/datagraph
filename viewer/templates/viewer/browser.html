@@ -1,0 +1,25 @@
+{% extends "base-sb-admin-2.html" %}
+
+{% load static %}
+
+{% block title %}
+    Data Graph - Browser
+{% endblock %}
+
+{% block page_content %}
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Browser</h1>
+        </div>
+        <div class="row">
+            <div class="col-12" id="vega-chart-container"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <script src="{% static "datagraph/viewer-browser.bundle.js" %}"></script>
+{% endblock %}

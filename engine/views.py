@@ -1,6 +1,7 @@
 import importlib
 
-from django.http import HttpResponseRedirect
+from django.template import loader
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -95,3 +96,11 @@ def existing_node_editor(request, node_id: str):
             'form': form
         }
     )
+
+
+def vega_spec(request):
+    """This view generates vega visualization specification"""
+    tpl = loader.get_template('engine/vega_line_chart_spec.jinja2')
+    return HttpResponse(
+        tpl.render(request=request),
+        content_type='application/json')

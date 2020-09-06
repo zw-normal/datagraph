@@ -140,7 +140,7 @@ export class GraphView {
 
         const labels = svg.selectAll("text.label")
                 .data(nodes)
-                .enter().append("text")
+                .join("text")
                 .attr("class", "label")
                 .attr("fill", "black")
                 .attr("pointer-events", "none")

@@ -49,7 +49,7 @@
                     <hr class="sidebar-divider">
                 </li>
 
-                <!-- Heading -->
+                <!-- Engine Heading -->
                 <li>
                     <div class="sidebar-heading">
                         Engine
@@ -61,6 +61,21 @@
                     <a class="nav-link" href="{% url 'engine:workbench' %}">
                         <i class="fas fa-fw fa-tools"></i>
                         <span>Workbench</span>
+                    </a>
+                </li>
+
+                <!-- Viewer Heading -->
+                <li>
+                    <div class="sidebar-heading">
+                        Viewer
+                    </div>
+                </li>
+
+                <!-- Nav Item - Data Engine -->
+                <li class="nav-item {% if active_menu == "browser" %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'viewer:browser' %}">
+                        <i class="fas fa-fw fa-eye"></i>
+                        <span>Browser</span>
                     </a>
                 </li>
 

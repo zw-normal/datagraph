@@ -8,6 +8,7 @@ module.exports = {
         'engine-workbench': './src/engine/workbench/index.ts',
         'engine-node-editor': './src/engine/node-editor/index.ts',
         'engine-spreadsheet-widget': './src/engine/spreadsheet-widget/index.ts',
+        'viewer-browser': './src/viewer/browser/index.ts',
     },
     output: {
         filename: '[name].bundle.js',
