@@ -12,14 +12,27 @@
             <h1 class="h3 mb-0 text-gray-800">Browser</h1>
         </div>
         <div class="row">
+            <div class="col">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.vega_spec_nodes }}
+                </form>
+            </div>
+        </div>
+        <div class="row mt-5">
             <div class="col-12" id="vega-chart-container"></div>
         </div>
     </div>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static "bootstrap-select/css/bootstrap-select.min.css" %}">
 {% endblock %}
 
 {% block extra_js %}
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <script src="{% static "bootstrap-select/js/bootstrap-select.min.js" %}"></script>
     <script src="{% static "datagraph/viewer-browser.bundle.js" %}"></script>
 {% endblock %}

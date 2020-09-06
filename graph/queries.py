@@ -1,5 +1,7 @@
 from typing import List
+
 from django.db.models import Q
+
 from graph.models import Unit, DataNode, DataEdge, DataNodeType
 
 
@@ -18,13 +20,6 @@ def get_data_nodes_by_ids(ids: [str]):
 def get_data_nodes_by_dest(id_: str):
     edges = DataEdge.objects.filter(dest_id=id_)
     return [edge.source for edge in edges]
-
-
-def get_tiingo_reader_by_ticker(ticker: str):
-    return DataNode.objects.filter(
-        Q(name='tiingo') &
-        Q(type=DataNodeType.READER) &
-        Q(params__ticker=ticker))
 
 
 def link_data_nodes(source: DataNode, dest: DataNode):
