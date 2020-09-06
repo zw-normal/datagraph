@@ -134,3 +134,7 @@ class AggregatorForm(ComponentForm):
 
         source_nodes = self.cleaned_data['source_nodes']
         set_data_node_sources(source_nodes, node)
+
+
+class WriterForm(CalculatorForm):
+    pass

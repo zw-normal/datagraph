@@ -4,7 +4,10 @@ from . import views
 app_name = 'engine'
 urlpatterns = [
     path('', views.workbench, name='workbench'),
-    path('vega-spec', views.vega_spec, name='vega-spec'),
+    path(
+        'vega-spec/<uuid:node_id>/',
+        views.vega_spec,
+        name='vega-spec'),
     path(
         'node-editor/<uuid:node_id>/',
         views.existing_node_editor,
