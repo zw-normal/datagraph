@@ -30,13 +30,13 @@
 
   "scales": [
     {
-      "name": "x",
+      "name": "xscale",
       "type": "time",
       "range": "width",
       "domain": {"data": "table", "field": "x"}
     },
     {
-      "name": "y",
+      "name": "yscale",
       "type": "linear",
       "range": "height",
       "nice": true,
@@ -52,8 +52,8 @@
   ],
 
   "axes": [
-    {"orient": "bottom", "scale": "x"},
-    {"orient": "left", "scale": "y", "title": "{{ unit }}"}
+    {"orient": "bottom", "scale": "xscale"},
+    {"orient": "left", "scale": "yscale", "title": "{{ unit }}"}
   ],
 
   "marks": [
@@ -73,13 +73,14 @@
           "encode": {
             "enter": {
               "x": {
-                "scale": "x",
+                "scale": "xscale",
                 "field": "x",
                 "type": "temporal"
               },
-              "y": {"scale": "y", "field": "y"},
+              "y": {"scale": "yscale", "field": "y"},
               "stroke": {"scale": "color", "field": "c"},
-              "strokeWidth": {"value": 2}
+              "strokeWidth": {"value": 2},
+              "tooltip": {"signal": "{date: join([year(datum.x), month(datum.x)+1, day(datum.x)], '-'), value: format(datum.y, '.2f'), group: datum.c}"}
             }
           }
         }
