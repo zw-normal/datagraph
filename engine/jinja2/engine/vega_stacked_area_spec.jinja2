@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
-  "description": "Vega line chart specification.",
+  "description": "Vega stacked area chart specification.",
   "padding": {"left": 5, "top": 5, "right": 20, "bottom": 5},
   "autosize": {"type": "fit", "contains": "padding"},
 
@@ -24,7 +24,15 @@
   "data": [
     {
       "name": "table",
-      "values": {{ data|safe }}
+      "values": {{ data|safe }},
+      "transform": [
+        {
+          "type": "stack",
+          "groupby": ["x"],
+          "sort": {"field": "c"},
+          "field": "y"
+        }
+      ]
     }
   ],
 
@@ -39,9 +47,8 @@
       "name": "yscale",
       "type": "linear",
       "range": "height",
-      "nice": true,
-      "zero": true,
-      "domain": {"data": "table", "field": "y"}
+      "nice": true, "zero": true,
+      "domain": {"data": "table", "field": "y1"}
     },
     {
       "name": "color",
@@ -52,8 +59,8 @@
   ],
 
   "axes": [
-    {"orient": "bottom", "scale": "xscale"},
-    {"orient": "left", "scale": "yscale", "title": "{{ unit }}"}
+    {"orient": "bottom", "scale": "xscale", "zindex": 1},
+    {"orient": "left", "scale": "yscale", "zindex": 1, "title": "{{ unit }}"}
   ],
 
   "marks": [
@@ -68,25 +75,22 @@
       },
       "marks": [
         {
-          "type": "line",
+          "type": "area",
           "from": {"data": "series"},
           "encode": {
             "enter": {
-              "x": {
-                "scale": "xscale",
-                "field": "x",
-                "type": "temporal"
-              },
-              "y": {"scale": "yscale", "field": "y"},
-              "stroke": {"scale": "color", "field": "c"},
-              "strokeWidth": {"value": 2},
+              "interpolate": {"value": "monotone"},
+              "x": {"scale": "xscale", "field": "x"},
+              "y": {"scale": "yscale", "field": "y0"},
+              "y2": {"scale": "yscale", "field": "y1"},
+              "fill": {"scale": "color", "field": "c"},
               "tooltip": {"signal": "{date: join([year(datum.x), month(datum.x)+1, day(datum.x)], '-'), value: format(datum.y, '.2f'), group: datum.c}"}
             },
             "update": {
-              "strokeOpacity": {"value": 1}
+              "fillOpacity": {"value": 1}
             },
             "hover": {
-              "strokeOpacity": {"value": 0.5}
+              "fillOpacity": {"value": 0.5}
             }
           }
         }
