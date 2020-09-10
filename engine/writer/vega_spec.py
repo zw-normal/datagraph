@@ -1,8 +1,11 @@
 import json
 
 from django.template import loader
+from django import forms
 
+from engine.forms import WriterForm
 from engine.component import Component
+from graph.models import DataNode
 
 
 class Writer(Component):
@@ -19,7 +22,7 @@ class Writer(Component):
                 data_result.append({
                     'x': row_index.timestamp() * 1000,
                     'y': data_dict['data'][row_count][column_count],
-                    'c': column_index})
+                    'c': self.get_column_title(column_index)})
 
         tpl = loader.get_template(
             'engine/{}'.format(self.JINJA2_TEMPLATE_FILE))
@@ -28,3 +31,39 @@ class Writer(Component):
             'unit': self.unit.name,
             'data': json.dumps(data_result)
         })
+
+    def get_column_title(self, column):
+        if self.data_node.params:
+            column_titles = self.data_node.params.get('column_titles', [])
+            for column_title in column_titles:
+                if column_title['column'] == column:
+                    return column_title['title']
+        return column            
+
+
+class Form(WriterForm):
+
+    column_titles = forms.CharField(
+        label='Column Titles', max_length=4096,
+        widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    @staticmethod
+    def load_special_fields(node: DataNode):
+        result = WriterForm.load_special_fields(node)
+        if node.params:
+            result.update({
+                'column_titles': ', '.join(
+                    ('{}::{}'.format(ct['column'], ct['title']) for ct in node.params.get('column_titles', [])))
+            })
+        return result
+
+    def save_special_fields(self, node: DataNode):
+        super().save_special_fields(node)
+        column_titles = []
+        for column_title in self.data['column_titles'].split(','):
+            column, title = tuple(ct.strip() for ct in column_title.strip().split('::'))
+            column_titles.append({'column': column, 'title': title})
+        node.params = {
+            'column_titles': column_titles
+        }
+        node.save()

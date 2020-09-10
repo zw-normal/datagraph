@@ -80,7 +80,7 @@
               "y": {"scale": "yscale", "field": "y"},
               "stroke": {"scale": "color", "field": "c"},
               "strokeWidth": {"value": 2},
-              "tooltip": {"signal": "{date: join([year(datum.x), month(datum.x)+1, day(datum.x)], '-'), value: format(datum.y, '.2f'), group: datum.c}"}
+              "tooltip": {"signal": "{date: join([year(datum.x), month(datum.x)+1, day(datum.x)+1], '-'), value: format(datum.y, '.2f'), group: datum.c}"}
             },
             "update": {
               "strokeOpacity": {"value": 1}

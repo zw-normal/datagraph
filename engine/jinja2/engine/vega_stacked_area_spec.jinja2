@@ -84,7 +84,7 @@
               "y": {"scale": "yscale", "field": "y0"},
               "y2": {"scale": "yscale", "field": "y1"},
               "fill": {"scale": "color", "field": "c"},
-              "tooltip": {"signal": "{date: join([year(datum.x), month(datum.x)+1, day(datum.x)], '-'), value: format(datum.y, '.2f'), group: datum.c}"}
+              "tooltip": {"signal": "{date: join([year(datum.x), month(datum.x)+1, day(datum.x)+1], '-'), value: format(datum.y, '.2f'), group: datum.c}"}
             },
             "update": {
               "fillOpacity": {"value": 1}
