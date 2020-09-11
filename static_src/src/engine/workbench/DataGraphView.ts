@@ -22,21 +22,23 @@ import { DataGraph, DataGraphAPI } from '../DataGraphApi';
     });
 
     eventEmitter.on(EventTypes.DATA_SOURCES_LOADED, (graph: DataGraph) => {
-        const nodes = graph.nodes.map(n => ({id: n.id, title: n.title, type: n.type}));
-        const edges = graph.edges.map(e => ({source: e.source.id, target: e.dest.id}));
+        if (graph && graph.nodes && graph.edges) {
+            const nodes = graph.nodes.map(n => ({id: n.id, title: n.title, type: n.type}));
+            const edges = graph.edges.map(e => ({source: e.source.id, target: e.dest.id}));
 
-        graphView = new GraphView(
-            '#graph-container', nodes, edges,
-            ['READER', 'TRANSFORM', 'WRITER'],
-            (node: any) => {
-                eventEmitter.emit(EventTypes.DATA_NODE_SELECTED, node);
-            },
-            (node: any, position: DOMRect) => {
-                eventEmitter.emit(EventTypes.DATA_NODE_CONTEXT_MENU, node, position)
-            },
-            () => {
-                $nodeContextMenu.removeClass('show').hide();
-            });
+            graphView = new GraphView(
+                '#graph-container', nodes, edges,
+                ['READER', 'TRANSFORM', 'WRITER'],
+                (node: any) => {
+                    eventEmitter.emit(EventTypes.DATA_NODE_SELECTED, node);
+                },
+                (node: any, position: DOMRect) => {
+                    eventEmitter.emit(EventTypes.DATA_NODE_CONTEXT_MENU, node, position)
+                },
+                () => {
+                    $nodeContextMenu.removeClass('show').hide();
+                });
+        }
     });
 
     $nodeContextMenu.on('click', "a", function() {

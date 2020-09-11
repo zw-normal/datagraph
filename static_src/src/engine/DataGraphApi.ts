@@ -46,7 +46,7 @@ export class DataGraphAPI {
             .then(data => {
                 const nodes: DataNode[] = data.data.dataNodes;
                 const edges: DataEdge[] = data.data.dataEdges;
-                if (edges.length > 0) {
+                if (edges && edges.length > 0) {
                     edges.forEach(e => {
                         if (!this.nodeExist(e.source, nodes)) {
                             nodes.push(e.source)
