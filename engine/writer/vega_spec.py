@@ -20,7 +20,7 @@ class Writer(Component):
         for row_count, row_index in enumerate(data_dict['index']):
             for column_count, column_index in enumerate(data_dict['columns']):
                 data_result.append({
-                    'x': row_index.timestamp() * 1000,
+                    'x': int(row_index.timestamp() * 1000),
                     'y': data_dict['data'][row_count][column_count],
                     'c': self.get_column_title(column_index)})
 

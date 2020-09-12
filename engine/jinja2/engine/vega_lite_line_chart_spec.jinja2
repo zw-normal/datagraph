@@ -1,0 +1,143 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "description": "Vega lite line chart specification.",
+  "padding": {"left": 5, "top": 5, "right": 20, "bottom": 5},
+  "width": "container",
+  "height": "container",
+  "title": "{{ title }}",
+  "data": {
+    "values": {{ data|safe }}
+  },
+  "layer": [{
+    "mark": "line",
+    "encoding": {
+      "x": {
+        "type": "temporal",
+        "field": "x",
+        "title": "Date"
+      },
+      "y": {
+        "type": "quantitative",
+        "field": "y",
+        "title": "{{ unit }}"
+      },
+      "color": {
+        "type": "nominal",
+        "field": "c",
+        "title": "Category"
+      }
+    }
+  },{
+      "selection": {
+        "tooltip": {
+          "type": "single",
+          "nearest": true,
+          "on": "mouseover",
+          "fields": ["x"],
+          "empty": "none",
+          "resolve": "global"
+        }
+      },
+      "mark": "circle",
+      "encoding": {
+        "color": {
+          "type": "nominal",
+          "field": "c"
+        },
+        "opacity": {
+          "condition": {
+            "selection": "tooltip",
+            "value": 1
+          },
+          "value": 0
+        },
+        "x": {
+          "type": "temporal",
+          "field": "x"
+        },
+        "y": {
+          "type": "quantitative",
+          "field": "y"
+        }
+      }
+    },{
+      "mark": {
+        "type": "rule",
+        "color": "gray"
+      },
+      "encoding": {
+        "x": {
+          "type": "temporal",
+          "field": "x"
+        }
+      },
+      "transform": [
+        {
+          "filter": {
+            "selection": "tooltip"
+          }
+        }
+      ]
+    },{
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 5,
+        "dy": -5,
+        "stroke": "white",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "color": {
+          "type": "nominal",
+          "field": "c"
+        },
+        "text": {
+          "condition": {
+            "type": "quantitative",
+            "field": "y",
+            "selection": "tooltip"
+          },
+          "value": ""
+        },
+        "x": {
+          "type": "temporal",
+          "field": "x"
+        },
+        "y": {
+          "type": "quantitative",
+          "field": "y"
+        }
+      }
+    },{
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 5,
+        "dy": -5
+      },
+      "encoding": {
+        "color": {
+          "type": "nominal",
+          "field": "c"
+        },
+        "text": {
+          "condition": {
+            "type": "quantitative",
+            "field": "y",
+            "selection": "tooltip"
+          },
+          "value": ""
+        },
+        "x": {
+          "type": "temporal",
+          "field": "x"
+        },
+        "y": {
+          "type": "quantitative",
+          "field": "y"
+        }
+      }
+    }
+  ]
+}

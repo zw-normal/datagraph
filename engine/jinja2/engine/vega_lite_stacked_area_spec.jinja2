@@ -1,0 +1,32 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "description": "Vega lite stacked area chart specification.",
+  "padding": {"left": 5, "top": 5, "right": 20, "bottom": 5},
+  "width": "container",
+  "height": "container",
+  "title": "{{ title }}",
+  "data": {
+      "values": {{ data|safe }}
+  },
+  "layer": [{
+    "mark": {"type": "area", "tooltip": true},
+    "encoding": {
+      "x": {
+        "type": "temporal",
+        "field": "x",
+        "title": "Date"
+      },
+      "y": {
+        "type": "quantitative",
+        "aggregate": "sum",
+        "field": "y",
+        "title": "{{ unit }}"
+      },
+      "color": {
+        "field": "c",
+        "type": "nominal",
+        "title": "Category"
+      }
+    } 
+  }]
+}
