@@ -21,4 +21,9 @@ urlpatterns = [
         views.new_node_editor,
         name='new-node-editor'
     ),
+    path(
+        'node-editor/<uuid:node_id>/delete',
+        views.delete_node,
+        name='node-editor-deletion'
+    )
 ]

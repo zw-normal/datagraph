@@ -31,6 +31,9 @@
                 {% endfor %}
                 <input type="submit" class="btn btn-primary mb-2" value="Submit" />
                 <a class="btn btn-secondary mb-2" href="{% url 'engine:workbench' %}" role="button">Back</a>
+                {% if node_id %}
+                    <a class="btn btn-danger mb-2 float-right" href="{% url 'engine:node-editor-deletion' node_id %}" role="button">Delete</a>
+                {% endif %}
             </form>
         </div>
     </div>

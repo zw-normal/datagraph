@@ -3,10 +3,14 @@
     "outDir": "../static_build/datanestgraph",
     "noImplicitAny": true,
     "module": "es6",
-    "target": "es5",
+    "target": "es2015",
     "jsx": "react",
     "allowJs": true,
-    "lib": ["es2017", "dom", "esnext.array"],
+    "lib": [
+      "dom",
+      "es2017",
+      "es2019.array"
+    ],
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "Node"
   }

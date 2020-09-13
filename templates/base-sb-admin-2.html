@@ -135,8 +135,26 @@
                     </nav>
                     <!-- End of Top Bar -->
 
+                    <!-- Begin Messages -->
+                    {% if messages %}
+                        <div class="container-fluid">
+                            {% for message in messages %}
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="alert alert-{{ message.tags }}">
+                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                            {{ message }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <!-- End of Messages -->
+
                     <!-- Begin Page Content -->
                     {% block page_content %}{% endblock %}
+                    <!-- End of Page Content -->
                 </div>
                 <!-- End of Main Content -->
 
