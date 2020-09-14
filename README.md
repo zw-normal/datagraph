@@ -2,6 +2,12 @@
 
 The core of datagraph builds a simple graph structure for expressing how to reading, calculating and outputting data based on popular Python Data Analysis Library pandas. On the top of core, it uses Django to build the backend engine and Typescript, Bootstrap, D3 and Vega-Lite to build the frontend for storing and rendering data from customizable data source.
 
+## Frontend
+
+![Alt text](doc/Workbench.png?raw=true "Workbench")
+
+![Alt text](doc/Browser.png?raw=true "Workbench")
+
 ## Graph Engine
 
 The core `graph` and `engine` Django apps together allow defining unlimited data `reader`, `calculator`, `aggregator` and `writer` by following the convention of module and function name.
