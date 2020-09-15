@@ -18,3 +18,5 @@ node_modules/
 .history/
 
 /datanestgraph/settings_prod.py
+.coverage
+htmlcov/

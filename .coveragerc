@@ -1,0 +1,9 @@
+[coverage:run]
+source = .
+omit =
+    */node_modules/*
+    */static/*
+    */static_src/*
+    */static_third_party/*
+    */migrations/*
+    */venv/lib/*
