@@ -8,3 +8,6 @@ class PercentChangeTestCase(CommonTestCase.CalculatorTestCase):
     node_type = DataNodeType.CALCULATOR
     node_params = {}
     form_class = PercentChangeForm
+
+    def assertProcess(self, result):
+        self.assertEqual(2.0, result.loc[1, 'A'])

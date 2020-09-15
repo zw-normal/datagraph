@@ -91,8 +91,8 @@ class CommonTestCase:
                 params={
                     'columns': ['A', 'B'],
                     'data': [
-                        {'0': 100.0, '1': 200.0},
-                        {'0': 300.0, '1': 400.0}]
+                        {'0': 100.0, '1': None},
+                        {'0': 300.0, '1': None}]
                 }
             )
             self.source.save()

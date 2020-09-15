@@ -25,3 +25,7 @@ class DropNaTestCase(CommonTestCase.CalculatorTestCase):
 
     def assertSpecialFields(self, node):
         self.assertDictEqual(node.params, self.node.params)
+
+    def assertProcess(self, result):
+        columns = list(result.columns)
+        self.assertListEqual(columns, ['A'])

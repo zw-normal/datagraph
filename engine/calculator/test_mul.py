@@ -23,3 +23,6 @@ class MultiplicationTestCase(CommonTestCase.CalculatorTestCase):
 
     def assertSpecialFields(self, node):
         self.assertDictEqual(node.params, self.node.params)
+
+    def assertProcess(self, result):
+        self.assertEqual(0.1, result.loc[0, 'A'])

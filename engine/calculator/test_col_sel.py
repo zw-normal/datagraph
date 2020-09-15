@@ -7,7 +7,7 @@ class ColumnSelectionTestCase(CommonTestCase.CalculatorTestCase):
     node_name = 'col_sel'
     node_type = DataNodeType.CALCULATOR
     node_params = {
-        'columns': ['A', 'B'],
+        'columns': ['A'],
     }
     form_class = ColumnSelectionForm
 
@@ -24,3 +24,7 @@ class ColumnSelectionTestCase(CommonTestCase.CalculatorTestCase):
     def assertSpecialFields(self, node):
         self.assertListEqual(
             node.params['columns'], self.node.params['columns'])
+
+    def assertProcess(self, result):
+        columns = list(result.columns)
+        self.assertListEqual(columns, ['A'])

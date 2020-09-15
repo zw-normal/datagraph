@@ -7,3 +7,4 @@ omit =
     */static_third_party/*
     */migrations/*
     */venv/*
+    */test_*.py

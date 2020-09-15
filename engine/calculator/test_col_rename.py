@@ -30,3 +30,7 @@ class ColumnRenameTestCase(CommonTestCase.CalculatorTestCase):
             node.params['columns'], self.node.params['columns'])
         self.assertListEqual(
             node.params['new_names'], self.node.params['new_names'])
+
+    def assertProcess(self, result):
+        columns = list(result.columns)
+        self.assertListEqual(columns, ['D', 'E'])
