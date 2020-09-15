@@ -6,4 +6,4 @@ omit =
     */static_src/*
     */static_third_party/*
     */migrations/*
-    */venv/lib/*
+    */venv/*

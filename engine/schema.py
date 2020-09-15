@@ -24,7 +24,7 @@ class ComponentType(DjangoObjectType):
     data = graphene.Field(DataFrame)
 
     def resolve_data(self, info):
-        return Component.json_data(self)
+        return Component.get_component(self).process()
 
 
 class DataEdgeType(DjangoObjectType):

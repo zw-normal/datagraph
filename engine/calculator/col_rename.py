@@ -5,7 +5,7 @@ from engine.forms import CalculatorForm
 from graph.models import DataNode
 
 
-class Transform(Component):
+class Calculator(Component):
 
     def process(self) -> DataFrame:
         data_frame = self.process_source()

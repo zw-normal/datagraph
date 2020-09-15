@@ -1,15 +1,8 @@
 from django.test import TestCase
+
 from graph.models import DataNode, DataNodeType, DataEdge
 from engine.forms import ComponentForm
-
-
-class MockRequestResponse:
-    def __init__(self, json_data, status_code):
-        self.json_data = json_data
-        self.status_code = status_code
-
-    def json(self):
-        return self.json_data
+from engine.component import Component
 
 
 class CommonTestCase:
@@ -57,6 +50,10 @@ class CommonTestCase:
             self.assertBasicFields(node)
             self.assertSpecialFields(node)
 
+        def test_process(self):
+            result = Component.get_component(self.node).process()
+            self.assertProcess(result)
+
         def assertBasicFormFields(self, form: ComponentForm):
             self.assertEqual(form.data['title'], self.node.title)
             self.assertEqual(form.data['type'], self.node.type)
@@ -71,6 +68,9 @@ class CommonTestCase:
             self.assertEqual(node.type, self.node.type)
 
         def assertSpecialFields(self, node):
+            pass
+
+        def assertProcess(self, result):
             pass
 
     class CalculatorTestCase(ComponentTestCase):
@@ -91,8 +91,8 @@ class CommonTestCase:
                 params={
                     'columns': ['A', 'B'],
                     'data': [
-                        {'0': 'ABC', '1': 'DEF'},
-                        {'0': 'HIL', '1': 'KLM'}]
+                        {'0': 100.0, '1': 200.0},
+                        {'0': 300.0, '1': 400.0}]
                 }
             )
             self.source.save()

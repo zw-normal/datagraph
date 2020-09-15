@@ -73,7 +73,3 @@ class Component(ABC):
             type=node.type.lower(),
             name=node.name)
         return importlib.import_module(module_name)
-
-    @classmethod
-    def json_data(cls, node: DataNode):
-        return cls.get_component(node).process()
