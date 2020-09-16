@@ -1,9 +1,7 @@
-import json
-
 from graph.models import DataNodeType
-from engine.reader.rba import \
-    Reader as RbaReader, Form as RbaReaderForm
+from engine.reader.rba import Form as RbaReaderForm
 from engine.tests import CommonTestCase
+
 
 class RbaReaderTestCase(CommonTestCase.ComponentTestCase):
     node_name = 'rba'

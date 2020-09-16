@@ -25,4 +25,4 @@ class MultiplicationTestCase(CommonTestCase.CalculatorTestCase):
         self.assertDictEqual(node.params, self.node.params)
 
     def assertProcess(self, result):
-        self.assertEqual(0.1, result.loc[0, 'A'])
+        self.assertEqual(0.1, result.iloc[0, 0])

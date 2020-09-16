@@ -33,8 +33,9 @@ export class SpreadsheetWidget {
         const columns = this.spreadSheet.jexcel('getHeaders').split(',')
         const data = {
             columns,
-            data: this.spreadSheet.jexcel('getJson'),
+            data: this.spreadSheet.jexcel('getData'),
         }
+        console.log(data);
         this.hiddenInput.val(JSON.stringify(data));
     }
 }

@@ -10,7 +10,6 @@ class CommonTestCase:
     class ComponentTestCase(TestCase):
         node_name = ''
         node_type = None
-        node_chart_type = None
         node_params = {}
         form_class = None
 
@@ -92,10 +91,10 @@ class CommonTestCase:
                 type=DataNodeType.READER,
                 name='manual',
                 params={
-                    'columns': ['A', 'B'],
+                    'columns': ['D', 'A', 'B'],
                     'data': [
-                        {'0': 100.0, '1': None},
-                        {'0': 300.0, '1': None}]
+                        ['2015-05-17', 100.0, ''],
+                        ['2015-06-17', 300.0, '']]
                 }
             )
             self.source.save()
@@ -104,3 +103,6 @@ class CommonTestCase:
                 source=self.source,
                 dest=self.node)
             self.data_edge.save()
+
+    class WriterTestCase(CalculatorTestCase):
+        pass

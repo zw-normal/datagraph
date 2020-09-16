@@ -1,6 +1,10 @@
 import json
+import numpy as np
+import pandas as pd
+
 from pandas import DataFrame
 from django import forms
+
 from engine.component import Component
 from engine.forms import ComponentForm
 from engine.widgets import Spreadsheet
@@ -10,8 +14,13 @@ from graph.models import DataNode
 class Reader(Component):
 
     def process(self) -> DataFrame:
-        data_frame = DataFrame.from_dict(self.data)
-        data_frame.columns = self.columns
+        # The first column is always considered as datetime and used as index
+        data_list = {}
+        for row in self.data:
+            data_list[row[0]] = [d if d else np.nan for d in row[1:]]
+        data_frame = DataFrame.from_dict(
+            data_list, orient='index', columns=self.columns[1:])
+        data_frame.index = pd.to_datetime(data_frame.index)
         return data_frame
 
 

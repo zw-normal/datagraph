@@ -14,8 +14,8 @@ lazy-object-proxy==1.4.3
 MarkupSafe==1.1.1
 mccabe==0.6.1
 networkx==2.5
-numpy==1.19.1
-pandas==1.1.1
+numpy==1.19.2
+pandas==1.1.2
 promise==2.3
 psycopg2-binary==2.8.5
 pylint==2.6.0

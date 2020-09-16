@@ -1,8 +1,7 @@
 import json
 
 from graph.models import DataNodeType
-from engine.reader.manual import \
-    Reader as ManualReader, Form as ManualReaderForm
+from engine.reader.manual import Form as ManualReaderForm
 from engine.tests import CommonTestCase
 
 
@@ -10,10 +9,11 @@ class ManualReaderTestCase(CommonTestCase.ComponentTestCase):
     node_name = 'manual'
     node_type = DataNodeType.READER
     node_params = {
-        'columns': ['A', 'B'],
+        'columns': ['D', 'A', 'B'],
         'data': [
-            {'0': 'ABC', '1': 'DEF'},
-            {'0': 'HIL', '1': 'KLM'}]
+            ['2015-05-17', 'ABC', 'DEF'],
+            ['2015-06-17', 'HIL', 'KLM']
+        ]
     }
     form_class = ManualReaderForm
 

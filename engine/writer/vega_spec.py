@@ -28,7 +28,7 @@ class Writer(Component):
             'engine/{}'.format(self.JINJA2_TEMPLATE_FILE))
         return tpl.render(context={
             'title': self.title,
-            'unit': self.unit.name,
+            'unit': self.unit.name if self.unit else '',
             'data': json.dumps(data_result)
         })
 

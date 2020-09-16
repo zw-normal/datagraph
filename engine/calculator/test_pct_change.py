@@ -10,4 +10,4 @@ class PercentChangeTestCase(CommonTestCase.CalculatorTestCase):
     form_class = PercentChangeForm
 
     def assertProcess(self, result):
-        self.assertEqual(2.0, result.loc[1, 'A'])
+        self.assertEqual(2.0, result.iloc[1, 0])
