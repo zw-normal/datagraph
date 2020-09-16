@@ -1,7 +1,7 @@
 import pandas as pd
 from pandas import DataFrame
 from django import forms
-from django.core.cache import cache
+from django.core.cache import cache, caches
 from engine.component import Component
 from engine.forms import ComponentForm
 from graph.models import DataNode
@@ -13,13 +13,18 @@ class Reader (Component):
         cache_key = str(self.data_node.id)
         result = cache.get(cache_key)
         if result is None:
-            xls_url = 'https://www.rba.gov.au/statistics/tables/xls/{}.xls'\
-                .format(self.category)
-            result = pd.read_excel(
-                xls_url, skiprows=10, index_col=0, sheet_name='Data')
-            result = result.set_index(
-                pd.to_datetime(result.index)).sort_index()
-            cache.set(cache_key, result, timeout=86400)
+            # noinspection PyBroadException
+            try:
+                xls_url = 'https://www.rba.gov.au/statistics/tables/xls/{}.xls'\
+                    .format(self.category)
+                result = pd.read_excel(
+                    xls_url, skiprows=10, index_col=0, sheet_name='Data')
+                result = result.set_index(
+                    pd.to_datetime(result.index)).sort_index()
+                cache.set(cache_key, result, timeout=86400)
+                caches['reader-cache'].set(cache_key, result)
+            except Exception:
+                result = caches['reader-cache'].get(cache_key)
         return result
 
 
