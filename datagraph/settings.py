@@ -167,3 +167,8 @@ CACHES = {
         'LOCATION': 'unique-snowflake',
     }
 }
+
+
+# Test
+
+EXCLUDED_PROCESS_TEST_OF_READERS = ['rba'] 

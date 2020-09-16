@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.conf import settings
 
 from graph.models import DataNode, DataNodeType, DataEdge
 from engine.forms import ComponentForm
@@ -51,8 +52,10 @@ class CommonTestCase:
             self.assertSpecialFields(node)
 
         def test_process(self):
-            result = Component.get_component(self.node).process()
-            self.assertProcess(result)
+            if self.node_type != DataNodeType.READER or \
+                    self.node_name not in settings.EXCLUDED_PROCESS_TEST_OF_READERS:
+                result = Component.get_component(self.node).process()
+                self.assertProcess(result)
 
         def assertBasicFormFields(self, form: ComponentForm):
             self.assertEqual(form.data['title'], self.node.title)
