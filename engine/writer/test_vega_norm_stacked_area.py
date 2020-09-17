@@ -1,10 +1,10 @@
 from graph.models import DataNodeType
-from engine.writer.vega_line import Form as VegaLineForm
+from engine.writer.vega_norm_stacked_area import Form as VegaNormalStackedAreaForm
 from engine.tests import CommonTestCase
 
 
 class VegaLineTestCase(CommonTestCase.WriterTestCase):
-    node_name = 'vega_line'
+    node_name = 'vega_norm_stacked_area'
     node_type = DataNodeType.WRITER
     node_params = {
         'column_titles': [
@@ -12,7 +12,7 @@ class VegaLineTestCase(CommonTestCase.WriterTestCase):
             {'column': 'B', 'title': 'Title B'},
         ]
     }
-    form_class = VegaLineForm
+    form_class = VegaNormalStackedAreaForm
 
     @property
     def special_form_fields(self):
@@ -28,4 +28,4 @@ class VegaLineTestCase(CommonTestCase.WriterTestCase):
 
     def assertProcess(self, result):
         self.assertTrue(
-            'Vega lite line chart specification.' in result)
+            'Vega lite nominal stacked area chart specification.' in result)

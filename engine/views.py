@@ -13,6 +13,7 @@ from engine.forms import DataReadersForm
 from engine.queries import is_node_deletable
 
 
+@login_required
 def workbench(request):
     node_ids = request.session.get('source_node_ids', set())
     if node_ids:
