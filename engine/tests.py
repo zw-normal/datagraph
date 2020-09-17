@@ -91,10 +91,13 @@ class CommonTestCase:
                 type=DataNodeType.READER,
                 name='manual',
                 params={
-                    'columns': ['D', 'A', 'B'],
-                    'data': [
-                        ['2015-05-17', 100.0, ''],
-                        ['2015-06-17', 300.0, '']]
+                    'raw_data': {
+                        'columns': ['D', 'A', 'B'],
+                        'data': [
+                            ['2015-05-17', 100.0, ''],
+                            ['2015-06-17', 300.0, '']
+                        ]},
+                    'is_time_series': True
                 }
             )
             self.source.save()

@@ -9,22 +9,27 @@ class ManualReaderTestCase(CommonTestCase.ComponentTestCase):
     node_name = 'manual'
     node_type = DataNodeType.READER
     node_params = {
-        'columns': ['D', 'A', 'B'],
-        'data': [
-            ['2015-05-17', 'ABC', 'DEF'],
-            ['2015-06-17', 'HIL', 'KLM']
-        ]
+        'raw_data': {
+            'columns': ['D', 'A', 'B'],
+            'data': [
+                ['2015-05-17', 'ABC', 'DEF'],
+                ['2015-06-17', 'HIL', 'KLM']
+            ]},
+        'is_time_series': True
     }
     form_class = ManualReaderForm
 
     @property
     def special_form_fields(self):
         return {
-            'data': json.dumps(self.node_params)
+            'raw_data': json.dumps(self.node_params['raw_data']),
+            'is_time_series': True
         }
 
     def assertSpecialFormFields(self, form):
-        self.assertEqual(form.data['data'], json.dumps(self.node.params))
+        self.assertEqual(
+            form.data['raw_data'],
+            json.dumps(self.node.params['raw_data']))
 
     def assertSpecialFields(self, node):
         self.assertDictEqual(node.params, self.node.params)

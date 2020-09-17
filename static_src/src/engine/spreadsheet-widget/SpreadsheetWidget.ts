@@ -35,7 +35,6 @@ export class SpreadsheetWidget {
             columns,
             data: this.spreadSheet.jexcel('getData'),
         }
-        console.log(data);
         this.hiddenInput.val(JSON.stringify(data));
     }
 }
