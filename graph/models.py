@@ -63,9 +63,9 @@ class DataEdge(models.Model):
     dest = models.ForeignKey(
         DataNode, on_delete=models.CASCADE, related_name='dest_nodes')
 
-    def save(self, *args, **kwargs):
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         self.full_clean()
-        return super().save(*args, **kwargs)
+        super().save(force_insert, force_update, using, update_fields)
 
     def clean(self):
         if self.source.type == DataNodeType.WRITER:

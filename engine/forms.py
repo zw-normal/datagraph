@@ -95,6 +95,7 @@ class ComponentForm(forms.Form):
             self.save_special_fields(node)
             node.save()
             return node.id
+        return None
 
     def save_special_fields(self, node: DataNode):
         pass

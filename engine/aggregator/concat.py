@@ -9,6 +9,7 @@ class Aggregator(Component):
         data_frames = self.process_source()
         if data_frames:
             return concat(data_frames, axis='columns', sort=False)
+        return DataFrame()
 
 
 class Form(AggregatorForm):

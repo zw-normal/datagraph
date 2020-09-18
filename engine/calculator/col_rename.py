@@ -12,6 +12,7 @@ class Calculator(Component):
         rename_dict = dict(zip(self.columns, self.new_names))
         if data_frame is not None:
             return data_frame.rename(columns=rename_dict)
+        return DataFrame()
 
 
 class Form(CalculatorForm):

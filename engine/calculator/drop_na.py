@@ -15,6 +15,7 @@ class Calculator(Component):
         if data_frame is not None:
             return data_frame.dropna(
                 axis=axis, how=how, inplace=False)
+        return DataFrame()
 
 
 class Form(CalculatorForm):

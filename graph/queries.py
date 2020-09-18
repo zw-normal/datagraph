@@ -25,7 +25,7 @@ def get_data_nodes_by_dest(id_: str):
 def link_data_nodes(source: DataNode, dest: DataNode):
     if dest.type != DataNodeType.AGGREGATOR:
         DataEdge.objects.filter(dest=dest).delete()
-    edge, _ = DataEdge.objects.get_or_create(
+    DataEdge.objects.get_or_create(
         source=source,
         dest=dest
     )

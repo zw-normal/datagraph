@@ -32,7 +32,7 @@ class DataEdgeType(DjangoObjectType):
         model = DataEdge
 
 
-class Query(object):
+class Query:
     units = graphene.List(UnitType)
     data_readers = graphene.List(ComponentType)
     data_node = graphene.Field(
@@ -63,10 +63,11 @@ class Query(object):
         session['source_node_ids'] = ids
         if ids:
             return list(DataNode.objects.filter(id__in=ids))
-        return None
+        return []
 
     def resolve_data_edges(self, info, **kwargs):
         ids = set(kwargs.get('ids'))
         if ids:
             nodes = list(DataNode.objects.filter(id__in=ids))
             return Component.graph(nodes)
+        return []
