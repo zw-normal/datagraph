@@ -1,5 +1,6 @@
 from pandas import DataFrame
 from django import forms
+
 from engine.component import Component
 from engine.forms import CalculatorForm
 from graph.models import DataNode
@@ -7,7 +8,7 @@ from graph.models import DataNode
 
 class Calculator(Component):
 
-    def process(self) -> DataFrame:
+    def process(self):
         axis = getattr(self, 'axis', 'index')
         how = getattr(self, 'how', 'any')
 

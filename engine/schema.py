@@ -1,6 +1,7 @@
 import graphene
 from graphene_django.types import DjangoObjectType
 from graphene.types import Scalar
+
 from engine.component import Component
 from graph.models import DataNode, DataEdge, Unit
 from graph.queries import get_data_readers

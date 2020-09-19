@@ -1,5 +1,6 @@
 from pandas import DataFrame
 from django import forms
+
 from engine.component import Component
 from engine.forms import CalculatorForm
 from graph.models import DataNode
@@ -7,7 +8,7 @@ from graph.models import DataNode
 
 class Calculator(Component):
 
-    def process(self) -> DataFrame:
+    def process(self):
         data_frame = self.process_source()
         rename_dict = dict(zip(self.columns, self.new_names))
         if data_frame is not None:

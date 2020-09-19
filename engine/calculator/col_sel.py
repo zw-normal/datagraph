@@ -8,7 +8,7 @@ from graph.models import DataNode
 
 class Calculator(Component):
 
-    def process(self) -> DataFrame:
+    def process(self):
         data_frame = self.process_source()
         if data_frame is not None:
             return data_frame[self.columns]

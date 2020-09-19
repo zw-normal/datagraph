@@ -13,7 +13,7 @@ from graph.models import DataNode
 
 class Reader(Component):
 
-    def process(self) -> DataFrame:
+    def process(self):
         # The first column is always used as index
         data_list = {}
         is_time_series = getattr(self, 'is_time_series', True)

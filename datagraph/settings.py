@@ -166,9 +166,9 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'LOCATION': 'unique-snowflake',
     },
-    'reader-cache': {
+    'node-cache': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'engine_reader_cache',
+        'LOCATION': 'engine_node_cache',
         'TIMEOUT': None
     }
 }

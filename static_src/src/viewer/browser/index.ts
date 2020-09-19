@@ -4,8 +4,11 @@ declare var vegaEmbed: any;
 
 (function ($) {
     const $vegaSpecPicker = $('#vega-spec-picker');
+    const $vegaChartContainer = $('#vega-chart-container')
 
     $vegaSpecPicker.on('change', () => {
+        $vegaChartContainer.empty();
+        
         const id = $vegaSpecPicker.val() as string[];
         if (id) {
             vegaEmbed(
