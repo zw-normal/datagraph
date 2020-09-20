@@ -13,11 +13,11 @@ urlpatterns = [
         views.existing_node_editor,
         name='existing-node-editor'),
     path(
-        'node_editor/<slug:node_type>/<slug:node_name>/',
+        'node-editor/<slug:node_type>/<slug:node_name>/',
         views.new_node_editor,
         name='new-source-node-editor'),
     path(
-        'node_editor/<slug:node_type>/<slug:node_name>/<uuid:source_id>',
+        'node-editor/<slug:node_type>/<slug:node_name>/<uuid:source_id>',
         views.new_node_editor,
         name='new-node-editor'
     ),

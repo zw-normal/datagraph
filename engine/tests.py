@@ -7,6 +7,7 @@ from engine.component import Component
 
 
 class CommonTestCase:
+
     class ComponentTestCase(TestCase):
         node_name = ''
         node_type = None
@@ -102,10 +103,43 @@ class CommonTestCase:
             )
             self.source.save()
 
-            self.data_edge = DataEdge(
+            data_edge = DataEdge(
                 source=self.source,
                 dest=self.node)
-            self.data_edge.save()
+            data_edge.save()
+
+    class AggregatorTestCase(CalculatorTestCase):
+
+        @property
+        def basic_form_fields(self):
+            form_fields = super().basic_form_fields
+            form_fields.update(dict(source_nodes=self.sources))
+            return form_fields
+
+        def setUp(self):
+            super().setUp()
+
+            self.second_source = DataNode(
+                title='2nd Test Node Source',
+                type=DataNodeType.READER,
+                name='manual',
+                params={
+                    'raw_data': {
+                        'columns': ['D', 'C', 'D'],
+                        'data': [
+                            ['2015-07-17', 200.0, ''],
+                            ['2015-08-17', 600.0, '']
+                        ]},
+                    'is_time_series': True
+                }
+            )
+            self.second_source.save()
+            self.sources = [self.source, self.second_source]
+
+            data_edge = DataEdge(
+                source=self.second_source,
+                dest=self.node)
+            data_edge.save()
 
     class WriterTestCase(CalculatorTestCase):
         pass

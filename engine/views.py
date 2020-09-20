@@ -10,7 +10,7 @@ from graph.models import DataNode, DataNodeType
 from graph.queries import get_data_nodes_by_ids
 from engine.component import Component
 from engine.forms import DataReadersForm
-from engine.queries import is_node_deletable
+from engine.queries import is_node_deletable, get_vega_spec_writers
 
 
 @login_required
@@ -117,7 +117,7 @@ def delete_node(request, node_id: str):
 
 def vega_spec(request, node_id: str):
     """This view generates vega visualization specification"""
-    data_node = get_object_or_404(DataNode, id=node_id)
+    data_node = get_object_or_404(get_vega_spec_writers(), id=node_id)
     data_component = Component.get_component(data_node)
 
     return HttpResponse(
