@@ -8,17 +8,20 @@ class RbaReaderTestCase(CommonTestCase.ComponentTestCase):
     node_type = DataNodeType.READER
     node_params = {
         'category': 'd02hist',
+        'skip_rows': 10
     }
     form_class = RbaReaderForm
 
     @property
     def special_form_fields(self):
         return {
-            'category': 'd02hist'
+            'category': 'd02hist',
+            'skip_rows': 10
         }
 
     def assertSpecialFormFields(self, form):
         self.assertEqual(form.data['category'], 'd02hist')
+        self.assertEqual(form.data['skip_rows'], 10)
 
     def assertSpecialFields(self, node):
         self.assertDictEqual(node.params, self.node.params)
