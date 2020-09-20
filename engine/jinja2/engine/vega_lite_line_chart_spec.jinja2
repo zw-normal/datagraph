@@ -9,7 +9,7 @@
     "values": {{ data|safe }}
   },
   "layer": [{
-    "mark": "line",
+    "mark": {"type": "line", "tooltip": true},
     "encoding": {
       "x": {
         "type": "temporal",
@@ -19,7 +19,8 @@
       "y": {
         "type": "quantitative",
         "field": "y",
-        "title": "{{ unit }}"
+        "title": "{{ unit }}",
+        "format": ".2f"
       },
       "color": {
         "type": "nominal",
@@ -27,119 +28,5 @@
         "title": "Category"
       }
     }
-  },{
-      "selection": {
-        "tooltip": {
-          "type": "single",
-          "nearest": true,
-          "on": "mouseover",
-          "fields": ["x"],
-          "empty": "none",
-          "resolve": "global"
-        }
-      },
-      "mark": "circle",
-      "encoding": {
-        "color": {
-          "type": "nominal",
-          "field": "c"
-        },
-        "opacity": {
-          "condition": {
-            "selection": "tooltip",
-            "value": 1
-          },
-          "value": 0
-        },
-        "x": {
-          "type": "temporal",
-          "field": "x"
-        },
-        "y": {
-          "type": "quantitative",
-          "field": "y"
-        }
-      }
-    },{
-      "mark": {
-        "type": "rule",
-        "color": "gray"
-      },
-      "encoding": {
-        "x": {
-          "type": "temporal",
-          "field": "x"
-        }
-      },
-      "transform": [
-        {
-          "filter": {
-            "selection": "tooltip"
-          }
-        }
-      ]
-    },{
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "dx": 5,
-        "dy": -5,
-        "stroke": "white",
-        "strokeWidth": 2
-      },
-      "encoding": {
-        "color": {
-          "type": "nominal",
-          "field": "c"
-        },
-        "text": {
-          "condition": {
-            "type": "quantitative",
-            "field": "y",
-            "format": ".2f",
-            "selection": "tooltip"
-          },
-          "value": ""
-        },
-        "x": {
-          "type": "temporal",
-          "field": "x"
-        },
-        "y": {
-          "type": "quantitative",
-          "field": "y"
-        }
-      }
-    },{
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "dx": 5,
-        "dy": -5
-      },
-      "encoding": {
-        "color": {
-          "type": "nominal",
-          "field": "c"
-        },
-        "text": {
-          "condition": {
-            "type": "quantitative",
-            "field": "y",
-            "format": ".2f",
-            "selection": "tooltip"
-          },
-          "value": ""
-        },
-        "x": {
-          "type": "temporal",
-          "field": "x"
-        },
-        "y": {
-          "type": "quantitative",
-          "field": "y"
-        }
-      }
-    }
-  ]
+  }]
 }

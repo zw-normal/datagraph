@@ -121,8 +121,12 @@ export class GraphView {
             .attr("stroke", "white")
             .attr("stroke-width", 1.5)
             .attr("fill", (d: any) => color(d.type) as string)
+            .attr("opacity", (d: any) => (d.type == 'CALCULATOR' ? 0.6 : 1.0))
             .attr("r", radius)
             .call(drag(simulation));
+
+        node.append("title")
+            .text((d: any) => (d.type == 'CALCULATOR' ? d.title : ""));
 
         node.on("click", function (d) {
             if (nodeClicked) {
@@ -144,7 +148,7 @@ export class GraphView {
                 .attr("class", "label")
                 .attr("fill", "black")
                 .attr("pointer-events", "none")
-                .text(function(d) {return d.title;});
+                .text(function(d) {return d.type == 'CALCULATOR' ? "" : d.title;});
 
         simulation.on("tick", () => {
             link.attr("d", linkArc);
