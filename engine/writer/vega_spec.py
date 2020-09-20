@@ -47,15 +47,14 @@ class Form(WriterForm):
         label='Column Titles', max_length=4096,
         widget=forms.TextInput(attrs={'class': 'form-control'}))
 
-    @staticmethod
-    def load_special_fields(node: DataNode):
-        result = WriterForm.load_special_fields(node)
-        if node.params:
-            result.update({
-                'column_titles': ', '.join(
-                    ('{}::{}'.format(ct['column'], ct['title']) for ct in node.params.get('column_titles', [])))
-            })
-        return result
+    @classmethod
+    def load_special_fields(cls, node: DataNode):
+        fields = super().load_special_fields(node)
+        fields.update({
+            'column_titles': ', '.join(
+                ('{}::{}'.format(ct['column'], ct['title']) for ct in node.params.get('column_titles', [])))
+        })
+        return fields
 
     def save_special_fields(self, node: DataNode):
         super().save_special_fields(node)

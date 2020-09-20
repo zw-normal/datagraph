@@ -3,7 +3,6 @@ import functools
 from typing import List, Set
 from abc import ABC, abstractmethod
 
-from pandas import DataFrame
 from django.core.cache import cache, caches
 from django.db.models import Q
 
@@ -47,7 +46,7 @@ class Component(ABC):
     @abstractmethod
     def process(self):
         raise NotImplementedError
-    
+
     @staticmethod
     def with_cache(func):
         @functools.wraps(func)

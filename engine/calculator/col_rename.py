@@ -24,14 +24,14 @@ class Form(CalculatorForm):
         label='New Names', max_length=1024,
         widget=forms.TextInput(attrs={'class': 'form-control'}))
 
-    @staticmethod
-    def load_special_fields(node: DataNode):
-        result = CalculatorForm.load_special_fields(node)
-        result.update({
+    @classmethod
+    def load_special_fields(cls, node: DataNode):
+        fields = super().load_special_fields(node)
+        fields.update({
             'columns': ', '.join(node.params['columns']),
             'new_names': ', '.join(node.params['new_names'])
         })
-        return result
+        return fields
 
     def save_special_fields(self, node: DataNode):
         super().save_special_fields(node)

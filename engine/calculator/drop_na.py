@@ -36,14 +36,14 @@ class Form(CalculatorForm):
         label='How', choices=HOW_CHOICES, required=False,
         widget=forms.Select(attrs={'class': 'form-control selectpicker'}))
 
-    @staticmethod
-    def load_special_fields(node: DataNode):
-        result = CalculatorForm.load_special_fields(node)
-        result.update({
+    @classmethod
+    def load_special_fields(cls, node: DataNode):
+        fields = super().load_special_fields(node)
+        fields.update({
             'axis': node.params.get('axis', 'index') if node.params else 'index',
             'how': node.params.get('how', 'any') if node.params else 'any'
         })
-        return result
+        return fields
 
     def save_special_fields(self, node: DataNode):
         super().save_special_fields(node)

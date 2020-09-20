@@ -1,4 +1,5 @@
 import json
+
 import numpy as np
 import pandas as pd
 
@@ -35,14 +36,14 @@ class Form(ComponentForm):
     is_time_series = forms.BooleanField(
         label='Time Series', initial=True)
 
-    @staticmethod
-    def load_special_fields(node: DataNode):
-        result = ComponentForm.load_special_fields(node)
-        result.update({
+    @classmethod
+    def load_special_fields(cls, node: DataNode):
+        fields = super().load_special_fields(node)
+        fields.update({
             'raw_data': json.dumps(node.params.get('raw_data', [])),
             'is_time_series': node.params.get('is_time_series', True)
         })
-        return result
+        return fields
 
     def save_special_fields(self, node: DataNode):
         super().save_special_fields(node)

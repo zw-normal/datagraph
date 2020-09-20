@@ -21,13 +21,13 @@ class Form(CalculatorForm):
         label='Multiplier',
         widget=forms.NumberInput(attrs={'class': 'form-control'}))
 
-    @staticmethod
-    def load_special_fields(node: DataNode):
-        result = CalculatorForm.load_special_fields(node)
-        result.update({
+    @classmethod
+    def load_special_fields(cls, node: DataNode):
+        fields = super().load_special_fields(node)
+        fields.update({
             'multiplier': node.params.get('multiplier', 1.0) if node.params else 1.0
         })
-        return result
+        return fields
 
     def save_special_fields(self, node: DataNode):
         super().save_special_fields(node)

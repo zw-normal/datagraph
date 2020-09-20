@@ -1,4 +1,5 @@
 from django import forms
+
 from graph.models import DataNode, DataEdge
 from graph.queries import \
     get_units, get_data_readers, get_data_nodes_by_dest, \
@@ -112,12 +113,12 @@ class CalculatorForm(ComponentForm):
             }
         ))
 
-    @staticmethod
-    def load_special_fields(node: DataNode):
-        result = ComponentForm.load_special_fields(node)
+    @classmethod
+    def load_special_fields(cls, node: DataNode):
+        fields = super().load_special_fields(node)
         edge = DataEdge.objects.get(dest_id=node.id)
-        result.update({'source_node': edge.source})
-        return result
+        fields.update({'source_node': edge.source})
+        return fields
 
     def save_special_fields(self, node: DataNode):
         super().save_special_fields(node)
@@ -138,12 +139,12 @@ class AggregatorForm(ComponentForm):
             }
         ))
 
-    @staticmethod
-    def load_special_fields(node: DataNode):
-        result = ComponentForm.load_special_fields(node)
+    @classmethod
+    def load_special_fields(cls, node: DataNode):
+        fields = super().load_special_fields(node)
         nodes = get_data_nodes_by_dest(node.id)
-        result.update({'source_nodes': nodes})
-        return result
+        fields.update({'source_nodes': nodes})
+        return fields
 
     def save_special_fields(self, node: DataNode):
         super().save_special_fields(node)

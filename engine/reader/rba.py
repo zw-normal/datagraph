@@ -1,8 +1,6 @@
 import pandas as pd
-from pandas import DataFrame
 
 from django import forms
-from django.core.cache import cache, caches
 
 from engine.component import Component
 from engine.forms import ComponentForm
@@ -27,13 +25,13 @@ class Form(ComponentForm):
         label='Category', max_length=128,
         widget=forms.TextInput(attrs={'class': 'form-control'}))
 
-    @staticmethod
-    def load_special_fields(node: DataNode):
-        result = ComponentForm.load_special_fields(node)
-        result.update({
+    @classmethod
+    def load_special_fields(cls, node: DataNode):
+        fields = super().load_special_fields(node)
+        fields.update({
             'category': node.params['category']
         })
-        return result
+        return fields
 
     def save_special_fields(self, node: DataNode):
         super().save_special_fields(node)
