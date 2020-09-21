@@ -49,20 +49,22 @@
                     <hr class="sidebar-divider">
                 </li>
 
-                <!-- Engine Heading -->
-                <li>
-                    <div class="sidebar-heading">
-                        Engine
-                    </div>
-                </li>
+                {% if user.is_authenticated %}
+                    <!-- Engine Heading -->
+                    <li>
+                        <div class="sidebar-heading">
+                            Engine
+                        </div>
+                    </li>
 
-                <!-- Nav Item - Data Engine -->
-                <li class="nav-item {% if active_menu == "workbench" %}active{% endif %}">
-                    <a class="nav-link" href="{% url 'engine:workbench' %}">
-                        <i class="fas fa-fw fa-tools"></i>
-                        <span>Workbench</span>
-                    </a>
-                </li>
+                    <!-- Nav Item - Data Engine -->
+                    <li class="nav-item {% if active_menu == "workbench" %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'engine:workbench' %}">
+                            <i class="fas fa-fw fa-tools"></i>
+                            <span>Workbench</span>
+                        </a>
+                    </li>
+                {% endif %}
 
                 <!-- Viewer Heading -->
                 <li>
