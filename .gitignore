@@ -20,3 +20,5 @@ node_modules/
 /datanestgraph/settings_prod.py
 .coverage
 htmlcov/
+
+settings_prod.py
