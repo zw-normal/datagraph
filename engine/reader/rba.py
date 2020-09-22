@@ -1,5 +1,4 @@
 import pandas as pd
-
 from django import forms
 
 from engine.component import Component
