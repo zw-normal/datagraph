@@ -11,7 +11,7 @@ class Reader (Component):
 
     @Component.with_cache
     def process(self):
-        skip_rows = getattr(self, 'skip_rows', 10)
+        skip_rows = int(getattr(self, 'skip_rows', 10))
 
         xls_url = 'https://www.rba.gov.au/statistics/tables/xls/{}.xls'\
             .format(self.category)
@@ -35,7 +35,7 @@ class Form(ComponentForm):
         fields = super().load_special_fields(node)
         fields.update({
             'category': node.params['category'],
-            'skip_rows': node.params.get('skip_rows', 10)
+            'skip_rows': int(node.params.get('skip_rows', 10))
         })
         return fields
 
@@ -43,6 +43,6 @@ class Form(ComponentForm):
         super().save_special_fields(node)
         node.params = {
             'category': self.data['category'],
-            'skip_rows': self.data.get('skip_rows', 10)
+            'skip_rows': int(self.data.get('skip_rows', 10))
         }
         node.save()
