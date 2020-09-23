@@ -44,7 +44,7 @@ class Writer(Component):
 class Form(WriterForm):
 
     column_titles = forms.CharField(
-        label='Column Titles', max_length=4096,
+        label='Column Titles', max_length=4096, required=False,
         widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     @classmethod

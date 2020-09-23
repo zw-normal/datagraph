@@ -23,7 +23,7 @@ class Aggregator(Component):
 
 class Form(AggregatorForm):
 
-    reverse = forms.BooleanField(label='Reverse')
+    reverse = forms.BooleanField(label='Reverse', required=False)
 
     @classmethod
     def load_special_fields(cls, node: DataNode):
