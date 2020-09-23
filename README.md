@@ -2,7 +2,7 @@
 
 The core of datagraph builds a simple graph structure for expressing how to reading, calculating and outputting data based on popular Python Data Analysis Library pandas. On the top of core, it uses Django to build the backend engine and Typescript, Bootstrap, D3 and Vega-Lite to build the frontend for storing and rendering data from customizable data source.
 
-A deployed site can be accessed at http://104.225.140.184/.
+A deployed site can be accessed at https://datagraph.space/.
 
 ## Frontend
 
