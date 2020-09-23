@@ -18,7 +18,7 @@ class Aggregator(Component):
         dividend = data_frames[1]
         if reverse:
             divisor, dividend = dividend, divisor
-        return divisor.div(dividend.iloc[:, 0], axis='index')
+        return divisor.div(dividend.iloc[:, 0], axis='index')*100
 
 
 class Form(AggregatorForm):
