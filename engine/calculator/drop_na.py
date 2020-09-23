@@ -48,7 +48,7 @@ class Form(CalculatorForm):
     def save_special_fields(self, node: DataNode):
         super().save_special_fields(node)
         node.params = {
-            'axis': self.data.get('axis', 'index'),
-            'how': self.data.get('how', 'any')
+            'axis': self.cleaned_data['axis'],
+            'how': self.cleaned_data['how']
         }
         node.save()

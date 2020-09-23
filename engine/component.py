@@ -67,7 +67,7 @@ class Component(ABC):
         if self.data_node.type == DataNodeType.AGGREGATOR:
             data_frames = []
             edges = DataEdge.objects.filter(
-                dest__id=self.data_node.id)
+                dest__id=self.data_node.id).order_by('source__id')
             for edge in edges:
                 data_frames.append(
                     self.get_component(edge.source).process())

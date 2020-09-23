@@ -32,6 +32,6 @@ class Form(CalculatorForm):
     def save_special_fields(self, node: DataNode):
         super().save_special_fields(node)
         node.params = {
-            'multiplier': float(self.data.get('multiplier', 1.0))
+            'multiplier': self.cleaned_data['multiplier']
         }
         node.save()

@@ -48,6 +48,7 @@ class Form(ComponentForm):
     def save_special_fields(self, node: DataNode):
         super().save_special_fields(node)
         node.params = {
-            'raw_data': json.loads(self.data.get('raw_data', [])),
-            'is_time_series': self.data.get('is_time_series', True)}
+            'raw_data': json.loads(self.cleaned_data['raw_data']),
+            'is_time_series': self.cleaned_data['is_time_series']
+        }
         node.save()
