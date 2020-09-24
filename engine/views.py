@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.views.decorators.cache import cache_page
 
 from graph.models import DataNode, DataNodeType
 from graph.queries import get_data_nodes_by_ids
@@ -115,6 +116,7 @@ def delete_node(request, node_id: str):
         reverse('engine:existing-node-editor', kwargs={'node_id': node_id}))
 
 
+@cache_page(86400)
 def vega_spec(request, node_id: str):
     """This view generates vega visualization specification"""
     data_node = get_object_or_404(get_vega_spec_writers(), id=node_id)
