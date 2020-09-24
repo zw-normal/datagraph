@@ -17,5 +17,9 @@ def get_charts_count():
         Q(name='vega_norm_stacked_area')).count()
 
 
+def get_data_nodes_count():
+    return DataNode.objects.count()
+
+
 def is_node_deletable(node_id: str):
     return not DataEdge.objects.filter(source__id=node_id).exists()
