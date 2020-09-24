@@ -1,4 +1,5 @@
 {% load static %}
+{% load google_analytics_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -180,6 +181,11 @@
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
+
+        <!-- Google Analytics -->
+        <div style="display:none">
+            <img src="{% google_analytics %}" width="0" height="0" />
+        </div>
 
         <!-- Bootstrap core JavaScript-->
         <script src="{% static "jquery/js/jquery-3.4.1.min.js" %}" crossorigin="anonymous"></script>

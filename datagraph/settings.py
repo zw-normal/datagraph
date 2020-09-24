@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['localhost']
 # Application definition
 
 INSTALLED_APPS = [
+    'google_analytics',
     'viewer.apps.ViewerConfig',
     'engine.apps.EngineConfig',
     'graph.apps.GraphConfig',
@@ -171,6 +172,13 @@ CACHES = {
         'LOCATION': 'engine_node_cache',
         'TIMEOUT': None
     }
+}
+
+
+# Django Google Analytics
+
+GOOGLE_ANALYTICS = {
+    'google_analytics_id': 'UA-179015966-1',
 }
 
 

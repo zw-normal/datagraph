@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import include
-from django.urls import path
+from django.urls import path, re_path
 from django.contrib.auth import views as auth_views
 from django.views.decorators.csrf import csrf_exempt
 
@@ -34,5 +34,6 @@ urlpatterns = [
     path('admin', admin.site.urls),
     path('graphql', csrf_exempt(GraphQLView.as_view(graphiql=True, schema=schema))),
     path('engine/', include(engine_url)),
+    re_path('djga/', include('google_analytics.urls')),
     path('', include(viewer_url)),
 ]
