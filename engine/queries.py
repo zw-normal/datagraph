@@ -10,5 +10,12 @@ def get_vega_spec_writers():
         Q(name='vega_norm_stacked_area'))
 
 
+def get_charts_count():
+    return DataNode.objects.filter(
+        Q(name='vega_line') |
+        Q(name='vega_stacked_area') |
+        Q(name='vega_norm_stacked_area')).count()
+
+
 def is_node_deletable(node_id: str):
     return not DataEdge.objects.filter(source__id=node_id).exists()
