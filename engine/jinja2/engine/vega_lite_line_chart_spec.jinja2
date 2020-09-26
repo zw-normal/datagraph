@@ -5,17 +5,24 @@
   "width": "container",
   "height": "container",
   "title": "{{ title }}",
+  "config": {
+    "text": {
+      "align": "right",
+      "dx": -5
+    }
+  },
   "data": {
     "values": {{ data|safe }}
   },
+  "encoding": {
+    "x": {
+      "type": "temporal",
+      "field": "x",
+      "title": "Date"
+    }
+  },
   "layer": [{
-    "mark": {"type": "line", "tooltip": true},
     "encoding": {
-      "x": {
-        "type": "temporal",
-        "field": "x",
-        "title": "Date"
-      },
       "y": {
         "type": "quantitative",
         "field": "y",
@@ -29,6 +36,66 @@
         "legend": {
           "orient": "bottom"
         }
+      }
+    },
+    "layer": [
+      {
+        "mark": "line"
+      },{
+        "transform": [{"filter": {"selection": "hover"}}],
+        "mark": "circle"
+      },{
+        "transform": [{"filter": {"selection": "hover"}}],
+        "mark": {
+          "type": "text",
+          "stroke": "white",
+          "strokeWidth": 2
+        },
+        "encoding": {
+          "text": {
+            "type": "quantitative",
+            "field": "y",
+            "format": ".2f"
+          }
+        }
+      },{
+        "transform": [{"filter": {"selection": "hover"}}],
+        "mark": "text",
+        "encoding": {
+          "text": {
+            "type": "quantitative",
+            "field": "y",
+            "format": ".2f"
+          }
+        }
+      },{
+        "transform": [{"filter": {"selection": "hover"}}],
+        "mark": "text",
+        "encoding": {
+          "color": {"value": "black"},
+          "y": {"value": 10},
+          "text": {
+            "type": "temporal",
+            "field": "x"
+          }
+        }
+      }
+    ]
+  },{
+    "mark": "rule",
+    "encoding": {
+      "opacity": {
+        "condition": {"value": 0.3, "selection": "hover"},
+        "value": 0
+      }
+    },
+    "selection": {
+      "hover": {
+        "type": "single",
+        "nearest": true,
+        "on": "mouseover",
+        "encodings": ["x"],
+        "empty": "none"
       }
     }
   }]
