@@ -9,6 +9,7 @@ from django import forms
 from engine.component import Component
 from engine.forms import ComponentForm
 from engine.widgets import Spreadsheet
+from engine.convertor import to_float
 from graph.models import DataNode
 
 
@@ -22,22 +23,13 @@ class Reader(Component):
             row_index = row[0]
             if is_time_series:
                 row_index = pd.to_datetime(row_index, errors='ignore')
-            data_list[row_index] = [self._convert_to_float(d) if d else np.nan for d in row[1:]]
+            data_list[row_index] = [to_float(d) for d in row[1:]]
         data_frame = DataFrame.from_dict(
             data_list,
             orient='index',
             columns=self.raw_data.get('columns', [])[1:])
         return data_frame
 
-    @staticmethod
-    def _convert_to_float(data):
-        if isinstance(data, str):
-            data = data.strip()
-            try:
-                data = float(data)
-            except ValueError:
-                pass
-        return data
 
 class Form(ComponentForm):
     raw_data = forms.CharField(

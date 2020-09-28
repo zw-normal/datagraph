@@ -22,3 +22,4 @@ node_modules/
 htmlcov/
 
 settings_prod.py
+logs/

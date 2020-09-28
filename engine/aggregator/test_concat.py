@@ -10,4 +10,5 @@ class ConcatTestCase(CommonTestCase.AggregatorTestCase):
 
     def assertProcess(self, result):
         columns = list(result.columns)
-        self.assertListEqual(columns, ['A', 'B', 'C', 'D'])
+        self.assertListEqual(
+            sorted(columns), sorted(['A', 'B', 'C', 'D']))

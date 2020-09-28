@@ -185,3 +185,39 @@ GOOGLE_ANALYTICS = {
 # Test
 
 EXCLUDED_PROCESS_TEST_OF_READERS = ['rba']
+
+
+# Logging
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'datagraph.log'),
+            'formatter': 'simple',
+            'backupCount': 10,
+            'maxBytes': 5242880,
+        },
+    },
+    'formatters': {
+        'simple': {
+            'format': '%(asctime)s datagraph.space datagraph: %(message)s',
+            'datefmt': '%Y-%m-%dT%H:%M:%S',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'app-logger': {
+            'handlers': ['file'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
+    },
+}
