@@ -201,6 +201,12 @@ LOGGING = {
             'backupCount': 10,
             'maxBytes': 5242880,
         },
+        'papertrail': {
+            'level': 'INFO',
+            'class': 'logging.handlers.SysLogHandler',
+            'formatter': 'simple',
+            'address': ('logs5.papertrailapp.com', 40535)
+        },
     },
     'formatters': {
         'simple': {
@@ -210,12 +216,12 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['file'],
+            'handlers': ['file', 'papertrail'],
             'level': 'INFO',
             'propagate': True,
         },
         'app-logger': {
-            'handlers': ['file'],
+            'handlers': ['file', 'papertrail'],
             'level': 'WARNING',
             'propagate': True,
         },
