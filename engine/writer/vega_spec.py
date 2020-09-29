@@ -1,6 +1,7 @@
 import json
 
 from django.template import loader
+from django.core.exceptions import ValidationError
 from django import forms
 
 from engine.forms import WriterForm
@@ -61,12 +62,17 @@ class Form(WriterForm):
         super().save_special_fields(node)
         column_titles = []
         for column_title in self.cleaned_data['column_titles'].split(','):
-            try:
-                column, title = tuple(ct.strip() for ct in column_title.strip().split('::'))
-                column_titles.append({'column': column, 'title': title})
-            except ValueError:
-                pass
+            column, title = tuple(ct.strip() for ct in column_title.strip().split('::'))
+            column_titles.append({'column': column, 'title': title})
         node.params = {
             'column_titles': column_titles
         }
         node.save()
+
+    def clean_column_titles(self):
+        column_titles = self.cleaned_data['column_titles'].split(',')
+        for column_title in column_titles:
+            column_title_tuple = tuple(ct.strip() for ct in column_title.strip().split('::'))
+            if len(column_title_tuple) < 2:
+                raise ValidationError('Please use :: to separate column name and corresponding title')
+        return column_titles

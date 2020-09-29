@@ -14,6 +14,7 @@
         <div class="col-md-8">
             <form method="POST" role="form">
                 {% csrf_token %}
+                {{ form.non_field_errors }}
                 {% for field in form.hidden_fields %}
                     <div class="fieldWrapper form-group">
                         {{ field }}
@@ -27,6 +28,7 @@
                         {% if field.help_text %}
                             <p class="help">{{ field.help_text|safe }}</p>
                         {% endif %}
+                        {{ field.errors }}
                     </div>
                 {% endfor %}
                 <input type="submit" class="btn btn-primary mb-2" value="Submit" />
