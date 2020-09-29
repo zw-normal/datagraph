@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 
 from graph.models import DataNode, DataEdge
 from graph.queries import \
@@ -152,6 +153,12 @@ class AggregatorForm(ComponentForm):
 
         source_nodes = self.cleaned_data['source_nodes']
         set_data_node_sources(source_nodes, node)
+
+    def clean_source_nodes(self):
+        source_nodes = self.cleaned_data['source_nodes']
+        if len(source_nodes) < 2:
+            raise ValidationError('Must select at least 2 source nodes')
+        return source_nodes
 
 
 class WriterForm(CalculatorForm):

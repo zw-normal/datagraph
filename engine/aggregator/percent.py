@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 
 from engine.component import Component
 from engine.forms import AggregatorForm
@@ -39,3 +40,9 @@ class Form(AggregatorForm):
             'reverse': self.cleaned_data['reverse']
         }
         node.save()
+
+    def clean_source_nodes(self):
+        source_nodes = self.cleaned_data['source_nodes']
+        if len(source_nodes) != 2:
+            raise ValidationError('Must select 2 source nodes')
+        return source_nodes
