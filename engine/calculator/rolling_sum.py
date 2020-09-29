@@ -21,13 +21,13 @@ class Form(CalculatorForm):
 
     window = forms.IntegerField(
         label='Window',
-        widget=forms.TextInput(attrs={'class': 'form-control'}))
+        widget=forms.NumberInput(attrs={'class': 'form-control'}))
 
     @classmethod
     def load_special_fields(cls, node: DataNode):
         fields = super().load_special_fields(node)
         fields.update({
-            'window': node.params['window']
+            'window': node.params.get('window', 1) if node.params else 1
         })
         return fields
 
