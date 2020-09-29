@@ -50,18 +50,22 @@ class Form(WriterForm):
     @classmethod
     def load_special_fields(cls, node: DataNode):
         fields = super().load_special_fields(node)
-        fields.update({
-            'column_titles': ', '.join(
-                ('{}::{}'.format(ct['column'], ct['title']) for ct in node.params.get('column_titles', [])))
-        })
+        if node.params:
+            fields.update({
+                'column_titles': ', '.join(
+                    ('{}::{}'.format(ct['column'], ct['title']) for ct in node.params.get('column_titles') if ct))
+            })
         return fields
 
     def save_special_fields(self, node: DataNode):
         super().save_special_fields(node)
         column_titles = []
         for column_title in self.cleaned_data['column_titles'].split(','):
-            column, title = tuple(ct.strip() for ct in column_title.strip().split('::'))
-            column_titles.append({'column': column, 'title': title})
+            try:
+                column, title = tuple(ct.strip() for ct in column_title.strip().split('::'))
+                column_titles.append({'column': column, 'title': title})
+            except ValueError:
+                pass
         node.params = {
             'column_titles': column_titles
         }
