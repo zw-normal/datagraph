@@ -9,7 +9,7 @@ class Calculator(Component):
     def process(self):
         data_frame = self.process_source()
         if data_frame is not None:
-            return data_frame.pct_change()
+            return data_frame.sort_index().pct_change()
         return DataFrame()
 
 
