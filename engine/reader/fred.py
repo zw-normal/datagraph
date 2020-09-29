@@ -32,6 +32,6 @@ class Form(ComponentForm):
     def save_special_fields(self, node: DataNode):
         super().save_special_fields(node)
         node.params = {
-            'symbol': self.data['symbol']
+            'symbol': self.cleaned_data['symbol']
         }
         node.save()

@@ -59,7 +59,7 @@ class Form(WriterForm):
     def save_special_fields(self, node: DataNode):
         super().save_special_fields(node)
         column_titles = []
-        for column_title in self.data['column_titles'].split(','):
+        for column_title in self.cleaned_data['column_titles'].split(','):
             column, title = tuple(ct.strip() for ct in column_title.strip().split('::'))
             column_titles.append({'column': column, 'title': title})
         node.params = {

@@ -36,7 +36,7 @@ class Form(CalculatorForm):
     def save_special_fields(self, node: DataNode):
         super().save_special_fields(node)
         node.params = {
-            'columns': [c.strip() for c in self.data['columns'].split(',')],
-            'new_names': [c.strip() for c in self.data['new_names'].split(',')]
+            'columns': [c.strip() for c in self.cleaned_data['columns'].split(',')],
+            'new_names': [c.strip() for c in self.cleaned_data['new_names'].split(',')]
         }
         node.save()
