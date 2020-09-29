@@ -70,8 +70,8 @@ class Form(WriterForm):
         node.save()
 
     def clean_column_titles(self):
-        column_titles = self.cleaned_data['column_titles'].split(',')
-        for column_title in column_titles:
+        column_titles = self.cleaned_data['column_titles']
+        for column_title in column_titles.split(','):
             column_title_tuple = tuple(ct.strip() for ct in column_title.strip().split('::'))
             if len(column_title_tuple) < 2:
                 raise ValidationError('Please use :: to separate column name and corresponding title')
