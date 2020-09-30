@@ -9,11 +9,11 @@ from graph.models import DataNode
 class Aggregator(Component):
 
     def process(self):
-        # By default, the data_frames returned is ordered by data node id asc
-        reverse = getattr(self, 'reverse', False)
-
         data_frames = self.process_source()
         assert len(data_frames) == 2
+
+        # By default, the data_frames returned is ordered by data node id asc
+        reverse = getattr(self, 'reverse', False)
 
         divisor = data_frames[0]
         dividend = data_frames[1]

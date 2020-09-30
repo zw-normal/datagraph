@@ -8,9 +8,9 @@ class Aggregator(Component):
 
     def process(self):
         data_frames = self.process_source()
-        if data_frames:
-            return concat(data_frames, axis='columns', sort=False)
-        return DataFrame()
+        assert len(data_frames) > 0
+
+        return concat(data_frames, axis='columns', sort=False)
 
 
 class Form(AggregatorForm):

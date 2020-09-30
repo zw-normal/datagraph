@@ -1,4 +1,3 @@
-from pandas import DataFrame
 from django import forms
 
 from engine.component import Component
@@ -9,14 +8,12 @@ from graph.models import DataNode
 class Calculator(Component):
 
     def process(self):
+        data_frame = self.process_source()
+
         axis = getattr(self, 'axis', 'index')
         how = getattr(self, 'how', 'any')
-
-        data_frame = self.process_source()
-        if data_frame is not None:
-            return data_frame.dropna(
-                axis=axis, how=how, inplace=False)
-        return DataFrame()
+        return data_frame.dropna(
+            axis=axis, how=how, inplace=False)
 
 
 class Form(CalculatorForm):

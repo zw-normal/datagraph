@@ -1,4 +1,3 @@
-from pandas import DataFrame
 from django import forms
 
 from engine.component import Component
@@ -9,12 +8,10 @@ from graph.models import DataNode
 class Calculator(Component):
 
     def process(self):
-        window = getattr(self, 'window', 1)
-
         data_frame = self.process_source()
-        if data_frame is not None:
-            return data_frame.rolling(window).sum()
-        return DataFrame()
+
+        window = getattr(self, 'window', 1)
+        return data_frame.rolling(window).sum()
 
 
 class Form(CalculatorForm):

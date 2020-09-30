@@ -1,4 +1,3 @@
-from pandas import DataFrame
 from django import forms
 
 from engine.component import Component
@@ -10,9 +9,9 @@ class Calculator(Component):
 
     def process(self):
         data_frame = self.process_source()
-        if data_frame is not None:
-            return data_frame.mul(self.multiplier)
-        return DataFrame()
+
+        multiplier = getattr(self, 'multiplier', 1.0)
+        return data_frame.mul(multiplier)
 
 
 class Form(CalculatorForm):

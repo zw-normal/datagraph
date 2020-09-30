@@ -1,4 +1,3 @@
-from pandas import DataFrame
 from django import forms
 
 from engine.component import Component
@@ -10,10 +9,9 @@ class Calculator(Component):
 
     def process(self):
         data_frame = self.process_source()
+
         rename_dict = dict(zip(self.columns, self.new_names))
-        if data_frame is not None:
-            return data_frame.rename(columns=rename_dict)
-        return DataFrame()
+        return data_frame.rename(columns=rename_dict)
 
 
 class Form(CalculatorForm):
