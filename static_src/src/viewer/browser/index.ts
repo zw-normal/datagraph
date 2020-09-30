@@ -15,7 +15,12 @@ declare var vegaEmbed: any;
                 '#vega-chart-container',
                 `engine/vega-spec/${id}/`,
                 {
-                    actions: false
+                    actions: {
+                        export: true,
+                        source: true,
+                        compiled: false,
+                        editor: false
+                    }
                 }
             ).then(function(result: any) {
                 // Access the Vega view instance as result.view
