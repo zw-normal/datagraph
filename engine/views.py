@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.cache import cache_page
+from django.views.decorators.gzip import gzip_page
 
 from graph.models import DataNode, DataNodeType
 from graph.queries import get_data_nodes_by_ids
@@ -116,6 +117,7 @@ def delete_node(request, node_id: str):
         reverse('engine:existing-node-editor', kwargs={'node_id': node_id}))
 
 
+@gzip_page
 @cache_page(86400)
 def vega_spec(request, node_id: str):
     """This view generates vega visualization specification"""
