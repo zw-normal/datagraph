@@ -15,7 +15,8 @@ class ManualReaderTestCase(CommonTestCase.ComponentTestCase):
                 ['2015-05-17', 'ABC', 'DEF'],
                 ['2015-06-17', 'HIL', 'KLM']
             ]},
-        'is_time_series': True
+        'is_time_series': True,
+        'to_month_end': False
     }
     form_class = ManualReaderForm
 
@@ -23,7 +24,8 @@ class ManualReaderTestCase(CommonTestCase.ComponentTestCase):
     def special_form_fields(self):
         return {
             'raw_data': json.dumps(self.node_params['raw_data']),
-            'is_time_series': True
+            'is_time_series': True,
+            'to_month_end': False
         }
 
     def assertSpecialFormFields(self, form):
