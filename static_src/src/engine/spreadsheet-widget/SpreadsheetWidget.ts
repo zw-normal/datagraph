@@ -16,7 +16,8 @@ export class SpreadsheetWidget {
                 defaultColWidth: 100,
                 tableOverflow: true,
                 tableWidth: `${width}px`,
-                onafterchanges: this.onAfterChanges
+                onafterchanges: this.onAfterChanges,
+                onchangeheader: this.onAfterChanges
             });
         } else {
             this.spreadSheet.jexcel({
@@ -24,7 +25,8 @@ export class SpreadsheetWidget {
                 defaultColWidth: 100,
                 tableOverflow: true,
                 tableWidth: `${width}px`,
-                onafterchanges: this.onAfterChanges
+                onafterchanges: this.onAfterChanges,
+                onchangeheader: this.onAfterChanges
             });
         }
     }
