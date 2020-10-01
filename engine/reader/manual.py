@@ -47,8 +47,8 @@ class Form(ComponentForm):
         fields = super().load_special_fields(node)
         fields.update({
             'raw_data': json.dumps(node.params.get('raw_data', [])),
-            'is_time_series': node.params.get('is_time_series', True),
-            'to_month_end': node.params.get('to_month_end', False)
+            'is_time_series': node.params.get('is_time_series', True) if node.params else True,
+            'to_month_end': node.params.get('to_month_end', False) if node.params else False
         })
         return fields
 
