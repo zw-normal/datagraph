@@ -1,6 +1,6 @@
-import './Browser.scss';
+import embed from 'vega-embed';
 
-declare var vegaEmbed: any;
+import './Browser.scss';
 
 (function ($) {
     const $vegaSpecPicker = $('#vega-spec-picker');
@@ -11,7 +11,7 @@ declare var vegaEmbed: any;
         
         const id = $vegaSpecPicker.val() as string[];
         if (id) {
-            vegaEmbed(
+            embed(
                 '#vega-chart-container',
                 `engine/vega-spec/${id}/`,
                 {

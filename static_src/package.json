@@ -34,8 +34,12 @@
     "react-dom": "^16.13.1",
     "rxjs": "^6.5.5",
     "sass-lint": "^1.13.1",
+    "source-map-loader": "^1.1.0",
     "ts-polyfill": "^3.8.2",
     "underscore": "^1.10.2",
+    "vega": "^5.17.0",
+    "vega-embed": "^6.12.2",
+    "vega-lite": "^4.16.8",
     "vue": "^2.6.12"
   },
   "devDependencies": {

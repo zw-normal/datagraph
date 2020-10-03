@@ -12,6 +12,7 @@
       "es2019.array"
     ],
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "sourceMap": true
   }
 }

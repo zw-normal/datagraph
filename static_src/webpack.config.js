@@ -3,6 +3,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     mode: 'development',
+    devtool: 'source-map',
     entry: {
         'sb-admin-2': './src/datagraph/sb-admin-2.ts',
         'engine-workbench': './src/engine/workbench/index.ts',
