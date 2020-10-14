@@ -10,16 +10,34 @@ def get_units():
 
 
 def get_data_readers():
-    return DataNode.objects.filter(type=DataNodeType.READER)
+    return DataNode.objects.filter(Q(type=DataNodeType.READER))
 
 
-def get_data_nodes_by_ids(ids: [str]):
+def get_data_node_by_id(node_id: str, public_only: bool = False):
+    if public_only:
+        return DataNode.objects.get(Q(pk=node_id), Q(public=True))
+    return DataNode.objects.get(pk=node_id)
+
+
+def get_data_nodes_by_ids(ids: [str], public_only: bool = False):
+    if public_only:
+        return DataNode.objects.filter(Q(id__in=ids) & Q(public=True))
     return DataNode.objects.filter(id__in=ids)
+
+
+def get_data_nodes_count(public_only: bool = False):
+    if public_only:
+        return DataNode.objects.filter(public=True).count()
+    return DataNode.objects.count()
 
 
 def get_data_nodes_by_dest(id_: str):
     edges = DataEdge.objects.filter(dest_id=id_)
     return [edge.source for edge in edges]
+
+
+def get_all_data_nodes():
+    return DataNode.objects.all()
 
 
 def link_data_nodes(source: DataNode, dest: DataNode):

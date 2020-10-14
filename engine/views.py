@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.views.decorators.cache import cache_page
 
 from graph.models import DataNode, DataNodeType
-from graph.queries import get_data_nodes_by_ids
+from graph.queries import get_data_node_by_id, get_data_nodes_by_ids
 from engine.component import Component
 from engine.forms import DataReadersForm
 from engine.queries import is_node_deletable, get_vega_spec_writers
@@ -61,11 +61,11 @@ def new_node_editor(
         if source_id:
             if node_type == 'aggregator':
                 form_fields.update({
-                    'source_nodes': [DataNode.objects.get(id=source_id)]
+                    'source_nodes': [get_data_node_by_id(source_id)]
                 })
             else:
                 form_fields.update({
-                    'source_node': DataNode.objects.get(id=source_id)
+                    'source_node': get_data_node_by_id(source_id)
                 })
         form = form_class(initial=form_fields)
 
@@ -119,7 +119,9 @@ def delete_node(request, node_id: str):
 @cache_page(86400)
 def vega_spec(request, node_id: str):
     """This view generates vega visualization specification"""
-    data_node = get_object_or_404(get_vega_spec_writers(), id=node_id)
+    data_node = get_object_or_404(
+        get_vega_spec_writers(not request.user.is_authenticated),
+        id=node_id)
     data_component = Component.get_component(data_node)
 
     return HttpResponse(

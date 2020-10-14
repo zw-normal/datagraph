@@ -2,9 +2,10 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 from graph.models import DataNode, DataEdge
-from graph.queries import \
-    get_units, get_data_readers, get_data_nodes_by_dest, \
-    set_data_node_sources, link_data_nodes
+from graph.queries import (
+    get_units, get_data_readers, get_data_nodes_by_dest,
+    set_data_node_sources, link_data_nodes, get_data_node_by_id,
+    get_all_data_nodes)
 
 
 class DataNodeUnitChoiceField(forms.ModelChoiceField):
@@ -85,7 +86,7 @@ class ComponentForm(forms.Form):
         if self.is_valid():
             node_id = self.cleaned_data.get('id')
             if node_id is not None:
-                node = DataNode.objects.get(id=node_id)
+                node = get_data_node_by_id(node_id)
                 node.type = self.cleaned_data['type']
                 node.name = self.cleaned_data['name']
                 node.title = self.cleaned_data['title']
@@ -110,7 +111,7 @@ class ComponentForm(forms.Form):
 
 class CalculatorForm(ComponentForm):
     source_node = DataNodeModelChoiceField(
-        queryset=DataNode.objects.all(),
+        queryset=get_all_data_nodes(),
         to_field_name='id',
         widget=forms.Select(
             attrs={

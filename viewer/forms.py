@@ -27,3 +27,17 @@ class VegaSpecNodesForm(forms.Form):
                 'data-live-search': 'true',
             }
         ))
+
+
+class VegaPublicSpecNodesForm(forms.Form):
+    vega_spec_nodes = DataNodeModelChoiceField(
+        queryset=get_vega_spec_writers(True),
+        required=False,
+        to_field_name='id',
+        widget=forms.Select(
+            attrs={
+                'id': 'vega-spec-picker',
+                'class': 'form-control selectpicker',
+                'data-live-search': 'true',
+            }
+        ))

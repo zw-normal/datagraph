@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.conf import settings
 
 from graph.models import DataNode, DataNodeType, DataEdge
+from graph.queries import get_data_node_by_id
 from engine.forms import ComponentForm
 from engine.component import Component
 
@@ -46,7 +47,7 @@ class CommonTestCase:
             form_fields.update(self.special_form_fields)
             form = self.form_class(form_fields)
             node_id = form.save_to_node()
-            node = DataNode.objects.get(id=node_id)
+            node = get_data_node_by_id(node_id)
 
             self.assertBasicFields(node)
             self.assertSpecialFields(node)

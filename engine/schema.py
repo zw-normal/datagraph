@@ -4,7 +4,7 @@ from graphene.types import Scalar
 
 from engine.component import Component
 from graph.models import DataNode, DataEdge, Unit
-from graph.queries import get_data_readers
+from graph.queries import get_data_nodes_by_ids, get_data_node_by_id
 
 
 class DataFrame(Scalar):
@@ -46,13 +46,11 @@ class Query:
     def resolve_units(self, info, **kwargs):
         return Unit.objects.all()
 
-    def resolve_data_readers(self, info, **kwargs):
-        return list(get_data_readers())
-
     def resolve_data_node(self, info, **kwargs):
-        id_ = kwargs.get('id')
-        if id_ is not None:
-            return DataNode.objects.get(pk=id_)
+        node_id = kwargs.get('id')
+        if node_id is not None:
+            return get_data_node_by_id(
+                node_id, not info.context.user.is_authenticated)
         return None
 
     def resolve_data_nodes(self, info, **kwargs):
@@ -63,12 +61,14 @@ class Query:
             ids = set()
         session['source_node_ids'] = ids
         if ids:
-            return list(DataNode.objects.filter(id__in=ids))
+            return list(get_data_nodes_by_ids(
+                ids, not info.context.user.is_authenticated))
         return []
 
     def resolve_data_edges(self, info, **kwargs):
         ids = set(kwargs.get('ids'))
         if ids:
-            nodes = list(DataNode.objects.filter(id__in=ids))
+            nodes = list(get_data_nodes_by_ids(
+                ids, not info.context.user.is_authenticated))
             return Component.graph(nodes)
         return []
