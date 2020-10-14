@@ -28,7 +28,7 @@ import { DataGraph, DataGraphAPI } from '../DataGraphApi';
 
             graphView = new GraphView(
                 '#graph-container', nodes, edges,
-                ['READER', 'TRANSFORM', 'WRITER'],
+                ['READER', 'CALCULATOR', 'WRITER'],
                 (node: any) => {
                     eventEmitter.emit(EventTypes.DATA_NODE_SELECTED, node);
                 },

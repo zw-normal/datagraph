@@ -51,6 +51,8 @@ class ComponentForm(forms.Form):
         label='Type', max_length=20,
         widget=forms.TextInput(
             attrs={'class': 'form-control', 'readonly': True}))
+    public = forms.BooleanField(
+        label='Public', initial=True, required=False)
     unit = DataNodeUnitChoiceField(
         queryset=get_units(),
         required=False,
@@ -67,6 +69,7 @@ class ComponentForm(forms.Form):
             'title': node.title,
             'name': node.name,
             'type': node.type,
+            'public': node.public,
             'unit': node.unit
         }
         form_args.update(
@@ -86,12 +89,14 @@ class ComponentForm(forms.Form):
                 node.type = self.cleaned_data['type']
                 node.name = self.cleaned_data['name']
                 node.title = self.cleaned_data['title']
+                node.public = self.cleaned_data['public']
                 node.unit = self.cleaned_data['unit']
             else:
                 node = DataNode(
                     type=self.cleaned_data['type'],
                     name=self.cleaned_data['name'],
                     title=self.cleaned_data['title'],
+                    public=self.cleaned_data['public'],
                     unit=self.cleaned_data['unit']
                 )
             self.save_special_fields(node)

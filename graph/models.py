@@ -38,6 +38,8 @@ class DataNode(models.Model):
         max_length=20, choices=DataNodeType.choices, db_index=True)
     params = models.JSONField(
         null=True, blank=True)
+    public = models.BooleanField(
+        default=True)
     unit = models.ForeignKey(
         Unit, null=True, blank=True, on_delete=models.SET_NULL)
 
